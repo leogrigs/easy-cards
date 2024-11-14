@@ -10,6 +10,8 @@
     "release": "semantic-release"
   },
   "dependencies": {
+    "firebase": "^11.0.1",
+    "firebase-admin": "^13.0.0",
     "next": "15.0.3",
     "react": "19.0.0-rc-66855b96-20241106",
     "react-dom": "19.0.0-rc-66855b96-20241106"
@@ -19,6 +21,7 @@
     "@semantic-release/git": "^10.0.1",
     "@semantic-release/github": "^11.0.1",
     "@semantic-release/npm": "^12.0.1",
+    "@types/firebase": "^3.2.3",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
