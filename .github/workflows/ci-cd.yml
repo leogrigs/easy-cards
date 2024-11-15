@@ -15,24 +15,31 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Configure Git
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+      - name: Install GitHub CLI
+        run: sudo apt-get install -y gh
 
-      - name: Check if PR already exists
-        id: check-pr
+      - name: Authenticate GitHub CLI
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh auth setup-git
+
+      - name: Check if PR exists
+        id: check
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          PR_EXISTS=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
-          -H "Accept: application/vnd.github.v3+json" \
-          "https://api.github.com/repos/${{ github.repository }}/pulls?head=${{ github.repository_owner }}:${{ github.ref_name }}" | jq -r '.[0].id')
-
-          echo "pr_exists=$PR_EXISTS" >> $GITHUB_ENV
+          prs=$(gh pr list \
+              --repo "$GITHUB_REPOSITORY" \
+              --head "${GITHUB_REF_NAME}" \
+              --base 'main' \
+              --json title \
+              --jq 'length')
+          if (( prs > 0 )); then
+              echo "skip=true" >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Create Pull Request
-        if: env.pr_exists == ''
+        if: steps.check.outputs.skip != 'true'
         uses: peter-evans/create-pull-request@v5
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
