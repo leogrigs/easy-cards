@@ -22,14 +22,14 @@ jobs:
 
       - name: Check if PR already exists
         id: check-pr
-        uses: thollander/actions-setup-checkout-pull-request@v1
+        uses: peter-evans/closed-pull-requests@v3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          base: main
           head: ${{ github.ref_name }}
+          base: main
 
       - name: Create Pull Request
-        if: steps.check-pr.outputs.pr_exists == 'false'
+        if: steps.check-pr.outputs.pr_found != 'true'
         uses: peter-evans/create-pull-request@v5
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
