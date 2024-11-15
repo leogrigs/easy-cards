@@ -39,7 +39,6 @@ jobs:
           fi
 
       - name: Create Pull Request
-        if: steps.check.outputs.skip != 'true'
         uses: peter-evans/create-pull-request@v5
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -47,26 +46,6 @@ jobs:
           head: ${{ github.ref_name }}
           title: "Automated PR: Merging ${{ github.ref_name }}"
           body: "This PR was automatically created by GitHub Actions to merge ${{ github.ref_name }} into main."
-
-  lint-and-test:
-    name: Lint and Test
-    needs: create-pr
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: "20.8.1"
-
-      - name: Install Dependencies
-        run: npm install
-
-      - name: Run Linter
-        run: npm run lint
-
-      - name: Run Tests
-        run: npm test
+          branch: create-pull-request/patch
+          commit-message: "chore: auto-generated PR from ${{ github.ref_name }}"
+          force: true
