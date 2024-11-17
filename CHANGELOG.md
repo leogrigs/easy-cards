@@ -1,3 +1,16 @@
+# [1.2.0](https://github.com/leogrigs/easy-cards/compare/v1.1.0...v1.2.0) (2024-11-17)
+
+
+### Bug Fixes
+
+* add missing sidebar dependent components ([2711c8b](https://github.com/leogrigs/easy-cards/commit/2711c8bd871dd78ed692d9104c74d1bb94293401))
+
+
+### Features
+
+* add Sidebar component from shadcn ([08e1410](https://github.com/leogrigs/easy-cards/commit/08e1410bd7bf0f24e7fb9cc1897e3987bf25de37))
+* creat AppSidebar component ([394cd56](https://github.com/leogrigs/easy-cards/commit/394cd564ee0010904e847a89b2c639899698a00b))
+
 # [1.1.0](https://github.com/leogrigs/easy-cards/compare/v1.0.1...v1.1.0) (2024-11-17)
 
 
