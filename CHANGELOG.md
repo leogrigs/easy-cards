@@ -1,3 +1,12 @@
+# [1.3.0](https://github.com/leogrigs/easy-cards/compare/v1.2.0...v1.3.0) (2024-11-18)
+
+
+### Features
+
+* enable dark-mode by default ([baf7ac9](https://github.com/leogrigs/easy-cards/commit/baf7ac9d9605b1b1ef5f2bd97f3a8f909d679375))
+* first user integration ([1860ea8](https://github.com/leogrigs/easy-cards/commit/1860ea8df83c7e96794c18983632f66a3dcca387))
+* set up user on firestore ([49b71ac](https://github.com/leogrigs/easy-cards/commit/49b71acf49bea2791c91030b6acf542b57fd21b3))
+
 # [1.2.0](https://github.com/leogrigs/easy-cards/compare/v1.1.0...v1.2.0) (2024-11-17)
 
 
