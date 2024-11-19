@@ -2,15 +2,14 @@
 
 import { getUserData } from "@/firebase/firestore";
 import { UserData } from "@/interfaces/user-data.interface";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useAuth } from "../auth/AuthContext";
 
 export default function DashboardPage() {
   const { user } = useAuth();
   const [userData, setUserData] = useState<UserData | null>(null);
-  const modules = userData
-    ? [...userData.createdModules, ...userData.claimedModules]
-    : [];
+  const modules = userData ? [...userData.modules] : [];
 
   useEffect(() => {
     if (!user) return;
@@ -66,9 +65,11 @@ export default function DashboardPage() {
               You do not have any modules yet.
             </p>
             <div className="flex gap-4">
-              <button className="px-4 py-2 text-white bg-green-600 rounded-lg hover:bg-green-700">
-                Create Module
-              </button>
+              <Link href="/dashboard/new-module">
+                <button className="px-4 py-2 text-white bg-green-600 rounded-lg hover:bg-green-700">
+                  Create Module
+                </button>
+              </Link>
               <button className="px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700">
                 Explore Modules
               </button>
