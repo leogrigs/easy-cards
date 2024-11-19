@@ -17,8 +17,7 @@ export async function getUserData(user: User) {
   } else {
     const newUser = {
       uid: user.uid,
-      createdModules: [],
-      claimedModules: [],
+      modules: [],
       createdAt: serverTimestamp(),
     };
 

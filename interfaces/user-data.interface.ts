@@ -1,6 +1,5 @@
 export interface UserData {
   uid: string;
-  claimedModules: any[];
-  createdModules: any[];
+  modules: any[];
   createdAt: any;
 }

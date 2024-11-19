@@ -8,9 +8,7 @@ import { useAuth } from "../auth/AuthContext";
 export default function DashboardPage() {
   const { user } = useAuth();
   const [userData, setUserData] = useState<UserData | null>(null);
-  const modules = userData
-    ? [...userData.createdModules, ...userData.claimedModules]
-    : [];
+  const modules = userData ? [...userData.modules] : [];
 
   useEffect(() => {
     if (!user) return;
