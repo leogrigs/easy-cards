@@ -1,5 +1,5 @@
 export interface UserData {
-  uid: string;
+  id: string;
   modules: any[];
   createdAt: any;
 }
