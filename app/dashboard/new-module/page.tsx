@@ -5,10 +5,15 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
+import { createModule } from "@/firebase/firestore";
+import { Card } from "@/interfaces/card.interface";
+import { Module } from "@/interfaces/module.interface";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function CreateModulePage() {
   const { user } = useAuth();
+  const router = useRouter();
 
   const [formData, setFormData] = useState({
     name: "",
@@ -16,9 +21,7 @@ export default function CreateModulePage() {
     public: false,
   });
 
-  const [cards, setCards] = useState<
-    { id: string; front: string; back: string }[]
-  >([]);
+  const [cards, setCards] = useState<Card[]>([]);
   const [newCard, setNewCard] = useState({ front: "", back: "" });
 
   const handleInputChange = (
@@ -52,16 +55,21 @@ export default function CreateModulePage() {
     setCards((prev) => prev.filter((card) => card.id !== id));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!user) return;
 
-    const moduleData = {
+    const moduleData: Module = {
       ...formData,
+      id: Date.now().toString(),
+      ownerId: user.uid,
       cards,
     };
 
+    await createModule(moduleData, user.uid);
+
     console.log("Module Data Submitted:", moduleData);
+    router.push("/dashboard");
   };
 
   return (
@@ -212,7 +220,11 @@ export default function CreateModulePage() {
 
         {/* Submit Button */}
         <div className="mt-6 flex justify-end">
-          <Button type="submit" className="w-full md:w-auto">
+          <Button
+            onClick={handleSubmit}
+            type="submit"
+            className="w-full md:w-auto"
+          >
             Create Module
           </Button>
         </div>
