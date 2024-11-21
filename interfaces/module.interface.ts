@@ -8,3 +8,8 @@ export interface Module {
   ownerId: string;
   cards: Card[];
 }
+
+export interface ModulePreview {
+  id: string;
+  name: string;
+}

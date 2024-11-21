@@ -33,7 +33,7 @@ export async function getUserData(user: User) {
  * @param module - The module object to create.
  * @returns The created module data.
  */
-export async function createModule(module: Module, userId: string) {
+export async function createModule(module: Module) {
   const moduleRef = doc(firestore, "modules", module.id);
 
   const newModule = {
@@ -42,12 +42,15 @@ export async function createModule(module: Module, userId: string) {
   };
 
   await setDoc(moduleRef, newModule);
-  await updateUserModules(userId, module.id);
 
   return newModule;
 }
 
-export async function updateUserModules(userId: string, moduleId: string) {
+export async function updateUserModules(
+  userId: string,
+  moduleId: string,
+  moduleName: string
+) {
   const userRef = doc(firestore, "users", userId);
   const userSnapshot = await getDoc(userRef);
 
@@ -55,7 +58,12 @@ export async function updateUserModules(userId: string, moduleId: string) {
     const userData = userSnapshot.data();
     const modules = userData.modules || [];
 
-    modules.push(moduleId);
+    const newModule = {
+      id: moduleId,
+      name: moduleName,
+    };
+
+    modules.push(newModule);
 
     await setDoc(userRef, { modules }, { merge: true });
   }
