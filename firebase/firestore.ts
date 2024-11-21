@@ -1,3 +1,4 @@
+import { Module } from "@/interfaces/module.interface";
 import { User } from "firebase/auth";
 import { doc, getDoc, serverTimestamp, setDoc } from "firebase/firestore";
 import { firestore } from "./clientApp";
@@ -24,4 +25,23 @@ export async function getUserData(user: User) {
     await setDoc(userRef, newUser);
     return newUser;
   }
+}
+
+/**
+ * Creates a new module in the Firestore modules collection.
+ *
+ * @param module - The module object to create.
+ * @returns The created module data.
+ */
+export async function createModule(module: Module) {
+  const moduleRef = doc(firestore, "modules", module.id);
+
+  const newModule = {
+    ...module,
+    createdAt: serverTimestamp(),
+  };
+
+  await setDoc(moduleRef, newModule);
+
+  return newModule;
 }
