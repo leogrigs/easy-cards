@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
+import { Card } from "@/interfaces/card.interface";
 import { useState } from "react";
 
 export default function CreateModulePage() {
@@ -16,9 +17,7 @@ export default function CreateModulePage() {
     public: false,
   });
 
-  const [cards, setCards] = useState<
-    { id: string; front: string; back: string }[]
-  >([]);
+  const [cards, setCards] = useState<Card[]>([]);
   const [newCard, setNewCard] = useState({ front: "", back: "" });
 
   const handleInputChange = (
