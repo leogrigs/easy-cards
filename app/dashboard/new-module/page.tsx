@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
-import { createModule } from "@/firebase/firestore";
+import { createModule, updateUserModules } from "@/firebase/firestore";
 import { Card } from "@/interfaces/card.interface";
 import { Module } from "@/interfaces/module.interface";
 import { useRouter } from "next/navigation";
@@ -66,7 +66,8 @@ export default function CreateModulePage() {
       cards,
     };
 
-    await createModule(moduleData, user.uid);
+    await createModule(moduleData);
+    await updateUserModules(user.uid, moduleData.id, moduleData.name);
 
     console.log("Module Data Submitted:", moduleData);
     router.push("/dashboard");
