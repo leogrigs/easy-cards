@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/leogrigs/easy-cards/compare/v1.4.0...v1.5.0) (2024-11-21)
+
+
+### Features
+
+* initial view module page ([1273081](https://github.com/leogrigs/easy-cards/commit/12730814142daeb0e723dd3634feb61e4e6ff952))
+
 # [1.4.0](https://github.com/leogrigs/easy-cards/compare/v1.3.0...v1.4.0) (2024-11-21)
 
 
