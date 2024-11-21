@@ -1,3 +1,11 @@
+# [1.4.0](https://github.com/leogrigs/easy-cards/compare/v1.3.0...v1.4.0) (2024-11-21)
+
+
+### Features
+
+* include new module to users array ([3d50f51](https://github.com/leogrigs/easy-cards/commit/3d50f51420b42d8c9d62029356f8fa8189490658))
+* module creation integration ([d234fc9](https://github.com/leogrigs/easy-cards/commit/d234fc94130412994614cb14b7b874ec5a624b94))
+
 # [1.3.0](https://github.com/leogrigs/easy-cards/compare/v1.2.0...v1.3.0) (2024-11-18)
 
 
