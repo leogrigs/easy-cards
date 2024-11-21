@@ -66,7 +66,7 @@ export default function CreateModulePage() {
       cards,
     };
 
-    await createModule(moduleData);
+    await createModule(moduleData, user.uid);
 
     console.log("Module Data Submitted:", moduleData);
     router.push("/dashboard");
