@@ -74,11 +74,11 @@ export default function CreateModulePage() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900">
-      <div className="w-full max-w-5xl p-6 bg-white rounded-lg shadow dark:bg-gray-800">
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">
+    <div className="flex flex-col">
+      <div className="w-full flex-1 max-w-5xl p-6 rounded-lg shadow">
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">
           Create a New Module
-        </h1>
+        </h2>
 
         <form
           onSubmit={handleSubmit}
@@ -94,7 +94,7 @@ export default function CreateModulePage() {
               <div>
                 <label
                   htmlFor="name"
-                  className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                  className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
                 >
                   Module Name
                 </label>
