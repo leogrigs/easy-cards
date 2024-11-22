@@ -1,16 +1,14 @@
 "use client";
 
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 import { firestore } from "@/firebase/clientApp";
+import { Module } from "@/interfaces/module.interface";
 import { doc, getDoc } from "firebase/firestore";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-
-interface Module {
-  name: string;
-  description?: string;
-  cards: { front: string; back: string }[];
-}
 
 export default function ViewModulePage() {
   const searchParams = useParams<{ moduleId: string }>();
@@ -28,6 +26,7 @@ export default function ViewModulePage() {
 
         if (moduleSnapshot.exists()) {
           setModule(moduleSnapshot.data() as Module);
+          console.log("Module Data:", moduleSnapshot.data());
         } else {
           console.error("Module not found.");
           setModule(null);
@@ -62,7 +61,10 @@ export default function ViewModulePage() {
   return (
     <div className="max-w-4xl mx-auto p-6">
       <header className="mb-6">
-        <h1 className="text-3xl font-bold">{module.name}</h1>
+        <div className="flex justify-between items-center ">
+          <h2 className="text-3xl font-bold dark:text-white">{module.name}</h2>
+          <Badge>{module.public ? "Public" : "Private"}</Badge>
+        </div>
         <p className="mt-2 text-gray-600 dark:text-gray-400">
           {module.description || "No description available."}
         </p>
@@ -70,48 +72,21 @@ export default function ViewModulePage() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {module.cards.map((card, index) => (
-          <FlippableCard key={index} card={card} index={index} />
+          <div
+            key={index}
+            className="flex flex-col justify-between p-4 h-36 border border-slate-800 rounded-sm"
+          >
+            <p className="text-gray-700 dark:text-gray-300">{card.front}</p>
+            <Separator />
+            <p className="text-gray-700 dark:text-gray-300">{card.back}</p>
+          </div>
         ))}
       </div>
 
       <div className="mt-6">
         <Link href={`/dashboard/modules/edit/${moduleId}`}>
-          <button className="px-4 py-2 text-white bg-yellow-500 rounded-lg hover:bg-yellow-600">
-            Edit Module
-          </button>
+          <Button>Edit Module</Button>
         </Link>
-      </div>
-    </div>
-  );
-}
-
-interface CardProps {
-  card: { front: string; back: string };
-  index: number;
-}
-
-function FlippableCard({ card }: CardProps) {
-  const [flipped, setFlipped] = useState(false);
-
-  return (
-    <div
-      onClick={() => setFlipped(!flipped)}
-      className={`relative p-6 rounded-lg shadow-lg cursor-pointer transform transition-transform duration-300 ${
-        flipped ? "bg-gray-800 text-white" : "bg-white text-gray-900"
-      }`}
-    >
-      <div className="absolute inset-0 flex items-center justify-center">
-        {flipped ? (
-          <div>
-            <h3 className="text-lg font-semibold">Back</h3>
-            <p className="mt-2">{card.back}</p>
-          </div>
-        ) : (
-          <div>
-            <h3 className="text-lg font-semibold">Front</h3>
-            <p className="mt-2">{card.front}</p>
-          </div>
-        )}
       </div>
     </div>
   );
