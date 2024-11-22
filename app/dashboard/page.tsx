@@ -1,7 +1,9 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import { getUserData } from "@/firebase/firestore";
 import { UserData } from "@/interfaces/user-data.interface";
+import { Edit, Eye, Play } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useAuth } from "../auth/AuthContext";
@@ -28,13 +30,13 @@ export default function DashboardPage() {
   }, [user]);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900">
+    <div className="flex flex-col">
       <div className="w-full max-w-5xl p-4">
         <header className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 text-center">
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
             Your Modules
-          </h1>
-          <p className="mt-2 text-center text-gray-600 dark:text-gray-400">
+          </h2>
+          <p className="mt-2 text-gray-600 dark:text-gray-400">
             Manage your flashcards and explore new ones!
           </p>
         </header>
@@ -44,25 +46,39 @@ export default function DashboardPage() {
             {modules.map((module, index: number) => (
               <div
                 key={index}
-                className="relative p-4 bg-white rounded-lg shadow dark:bg-gray-800 hover:shadow-lg transition-shadow"
+                className="flex flex-col p-2 gap-2 justify-between relative border border-slate-800 rounded-sm"
               >
                 {/* Module Title */}
-                <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+                <h2 className="text-lg text-center font-semibold text-gray-900 dark:text-gray-100">
                   {module.name}
                 </h2>
 
                 {/* Actions */}
-                <div className="mt-4 flex gap-2">
-                  <Link href={`/dashboard/modules/${module.id}`}>
-                    <button className="flex-1 px-4 py-2 text-sm text-white bg-blue-600 rounded-lg hover:bg-blue-700">
-                      View
-                    </button>
-                  </Link>
-                  <Link href={`/dashboard/modules/edit/${module.id}`}>
-                    <button className="flex-1 px-4 py-2 text-sm text-white bg-yellow-500 rounded-lg hover:bg-yellow-600">
-                      Edit
-                    </button>
-                  </Link>
+                <div className="w-full flex justify-between gap-2">
+                  <Button asChild variant="ghost">
+                    <Link
+                      href={`/dashboard/modules/${module.id}`}
+                      className="dark:text-white"
+                    >
+                      <Eye />
+                    </Link>
+                  </Button>
+                  <Button asChild variant="ghost">
+                    <Link
+                      href={`/dashboard/modules/play/${module.id}`}
+                      className="dark:text-white"
+                    >
+                      <Play />
+                    </Link>
+                  </Button>
+                  <Button asChild variant="ghost">
+                    <Link
+                      href={`/dashboard/modules/edit/${module.id}`}
+                      className="dark:text-white"
+                    >
+                      <Edit />
+                    </Link>
+                  </Button>
                 </div>
               </div>
             ))}

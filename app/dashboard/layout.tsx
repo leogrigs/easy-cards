@@ -7,12 +7,12 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="bg-gray-100 dark:bg-gray-900">
+    <div className="bg-slate-100 dark:bg-zinc-950">
       <SidebarProvider>
         <AppSidebar />
         <div className="flex-1">
-          <SidebarTrigger />
-          <div>{children}</div>
+          <SidebarTrigger className="dark: text-white" />
+          <div className="p-4">{children}</div>
         </div>
       </SidebarProvider>
     </div>
