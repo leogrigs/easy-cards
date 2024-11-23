@@ -34,8 +34,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       setUser(currentUser);
       if (!currentUser) {
         router.push("/auth");
-      } else {
-        router.push("/dashboard");
       }
     });
     return () => unsubscribe();
