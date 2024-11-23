@@ -1,3 +1,16 @@
+# [1.6.0](https://github.com/leogrigs/easy-cards/compare/v1.5.0...v1.6.0) (2024-11-23)
+
+
+### Bug Fixes
+
+* remove redirect to /dashboard when user is not null ([a408ff9](https://github.com/leogrigs/easy-cards/commit/a408ff9a6655ea95ce7f02f34a20b498d8cd354c))
+
+
+### Features
+
+* explore modules page initial structure ([d6814c0](https://github.com/leogrigs/easy-cards/commit/d6814c0f77521036ebdf8097399bd72d9b31cee0))
+* get public modules from firestore using query ([08983d5](https://github.com/leogrigs/easy-cards/commit/08983d5121fdb3806d6eb2f7d026058edac5cccb))
+
 # [1.5.0](https://github.com/leogrigs/easy-cards/compare/v1.4.0...v1.5.0) (2024-11-21)
 
 
