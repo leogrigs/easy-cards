@@ -15,7 +15,7 @@ import {
   useEffect,
   useState,
 } from "react";
-import { auth } from "../../firebase/clientApp";
+import { auth } from "../firebase/clientApp";
 
 type AuthContextType = {
   user: User | null;
@@ -33,7 +33,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
       if (!currentUser) {
-        router.push("/auth");
+        router.push("/");
       }
     });
     return () => unsubscribe();
@@ -42,6 +42,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const loginWithGoogle = async () => {
     const provider = new GoogleAuthProvider();
     await signInWithPopup(auth, provider);
+    router.push("/dashboard");
   };
 
   const logout = async () => {
