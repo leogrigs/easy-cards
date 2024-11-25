@@ -1,6 +1,5 @@
 "use client";
 
-import { useAuth } from "@/app/auth/AuthContext";
 import {
   Sidebar,
   SidebarContent,
@@ -13,6 +12,7 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { cn } from "@/lib/utils"; // Utility for conditional classNames if available
+import { useAuth } from "@/providers/AuthContext";
 import { LayoutDashboard, LogOut, Search, Settings, Zap } from "lucide-react";
 
 const navigationItems = [

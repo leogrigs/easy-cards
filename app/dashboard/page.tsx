@@ -6,7 +6,7 @@ import { UserData } from "@/interfaces/user-data.interface";
 import { Edit, Eye, Play } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { useAuth } from "../auth/AuthContext";
+import { useAuth } from "../../providers/AuthContext";
 
 export default function DashboardPage() {
   const { user } = useAuth();
