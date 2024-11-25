@@ -11,6 +11,7 @@ import { useAuth } from "../auth/AuthContext";
 export default function DashboardPage() {
   const { user } = useAuth();
   const [userData, setUserData] = useState<UserData | null>(null);
+  const [loading, setLoading] = useState(true); // Loader state
   const modules = userData ? [...userData.modules] : [];
 
   useEffect(() => {
@@ -23,11 +24,21 @@ export default function DashboardPage() {
         setUserData(data);
       } catch (error) {
         console.error("Error fetching user data:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchUserData();
   }, [user]);
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="w-10 h-10 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col">
