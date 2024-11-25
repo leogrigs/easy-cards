@@ -1,6 +1,5 @@
 "use client";
 
-import { useAuth } from "@/app/auth/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
@@ -8,6 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { createModule, updateUserModules } from "@/firebase/firestore";
 import { Card } from "@/interfaces/card.interface";
 import { Module } from "@/interfaces/module.interface";
+import { useAuth } from "@/providers/AuthContext";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
