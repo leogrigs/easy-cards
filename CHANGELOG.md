@@ -1,3 +1,10 @@
+# [1.7.0](https://github.com/leogrigs/easy-cards/compare/v1.6.0...v1.7.0) (2024-11-25)
+
+
+### Features
+
+* include loader on dashboard page ([564beba](https://github.com/leogrigs/easy-cards/commit/564beba081cf06ad2e3507bf52a2b5bf498b31f2))
+
 # [1.6.0](https://github.com/leogrigs/easy-cards/compare/v1.5.0...v1.6.0) (2024-11-23)
 
 
