@@ -24,7 +24,7 @@ const navigationItems = [
   // TODO: change folder structure to use just /modules or /explore
   {
     title: "Explore",
-    url: "/dashboard/explore",
+    url: "/explore",
     icon: Search,
   },
   {

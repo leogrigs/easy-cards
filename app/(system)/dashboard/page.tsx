@@ -3,10 +3,10 @@
 import { Button } from "@/components/ui/button";
 import { getUserData } from "@/firebase/firestore";
 import { UserData } from "@/interfaces/user-data.interface";
+import { useAuth } from "@/providers/AuthContext";
 import { Edit, Eye, Play } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { useAuth } from "../../providers/AuthContext";
 
 export default function DashboardPage() {
   const { user } = useAuth();
