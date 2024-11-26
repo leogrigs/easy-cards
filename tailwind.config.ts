@@ -30,11 +30,15 @@ export default {
       },
       animation: {
         "fade-in": "fadeIn 2s ease-out",
+        hflip: "flipHorizontal 2s infinite",
       },
       keyframes: {
         fadeIn: {
           "0%": { opacity: "0" },
           "100%": { opacity: "1" },
+        },
+        flipHorizontal: {
+          "50%": { transform: "rotateY(180deg)" },
         },
       },
     },
