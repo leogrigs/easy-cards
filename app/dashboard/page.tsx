@@ -1,12 +1,13 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { getUserData } from "@/firebase/firestore";
+import { Separator } from "@/components/ui/separator";
+import { deleteModuleFromUser, getUserData } from "@/firebase/firestore";
 import { UserData } from "@/interfaces/user-data.interface";
-import { Edit, Eye, Play } from "lucide-react";
+import { useAuth } from "@/providers/AuthContext";
+import { Eye, Play, Plus, Search, Trash } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { useAuth } from "../../providers/AuthContext";
 
 export default function DashboardPage() {
   const { user } = useAuth();
@@ -15,22 +16,29 @@ export default function DashboardPage() {
   const modules = userData ? [...userData.modules] : [];
 
   useEffect(() => {
-    if (!user) return;
-
-    const fetchUserData = async () => {
-      try {
-        const data = (await getUserData(user)) as UserData;
-        console.log("User data:", data);
-        setUserData(data);
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchUserData();
   }, [user]);
+
+  const fetchUserData = async () => {
+    if (!user) return;
+
+    try {
+      const data = (await getUserData(user)) as UserData;
+      console.log("User data:", data);
+      setUserData(data);
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const deleteModule = async (moduleId: string) => {
+    if (!user) return;
+    setLoading(true);
+    await deleteModuleFromUser(user.uid, moduleId);
+    await fetchUserData();
+  };
 
   if (loading) {
     return (
@@ -51,6 +59,8 @@ export default function DashboardPage() {
             Manage your flashcards and explore new ones!
           </p>
         </header>
+
+        <Separator className="mb-8" />
 
         {modules.length > 0 ? (
           <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
@@ -82,13 +92,11 @@ export default function DashboardPage() {
                       <Play />
                     </Link>
                   </Button>
-                  <Button asChild variant="ghost">
-                    <Link
-                      href={`/dashboard/modules/edit/${module.id}`}
-                      className="dark:text-white"
-                    >
-                      <Edit />
-                    </Link>
+                  <Button
+                    onClick={() => deleteModule(module.id)}
+                    variant="ghost"
+                  >
+                    <Trash className="dark:text-white" />
                   </Button>
                 </div>
               </div>
@@ -100,14 +108,17 @@ export default function DashboardPage() {
               You do not have any modules yet.
             </p>
             <div className="flex gap-4">
-              <Link href="/dashboard/new-module">
-                <button className="px-4 py-2 text-white bg-green-600 rounded-lg hover:bg-green-700">
+              <Button asChild variant="link">
+                <Link href="/modules/new-module">
+                  <Plus />
                   Create Module
-                </button>
-              </Link>
-              <button className="px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700">
-                Explore Modules
-              </button>
+                </Link>
+              </Button>
+              <Button asChild variant="link">
+                <Link href="/explore">
+                  Explore Modules <Search />
+                </Link>
+              </Button>
             </div>
           </div>
         )}
