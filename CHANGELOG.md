@@ -1,3 +1,16 @@
+# [1.8.0](https://github.com/leogrigs/easy-cards/compare/v1.7.0...v1.8.0) (2024-11-26)
+
+
+### Bug Fixes
+
+* update module routes ([3b7c525](https://github.com/leogrigs/easy-cards/commit/3b7c525a126cce9dddc1553c1162cfe0e819ee64))
+
+
+### Features
+
+* play module page initial layout ([e13c1ef](https://github.com/leogrigs/easy-cards/commit/e13c1efbdcbf309b11760371d6ea14999073d1f0))
+* play module v1 ([8ed0d83](https://github.com/leogrigs/easy-cards/commit/8ed0d835634decf38a5f1175ea49eed2f92c8228))
+
 # [1.7.0](https://github.com/leogrigs/easy-cards/compare/v1.6.0...v1.7.0) (2024-11-25)
 
 
