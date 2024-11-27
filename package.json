@@ -1,6 +1,6 @@
 {
   "name": "easy-cards",
-  "version": "1.3.0",
+  "version": "1.8.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -21,6 +21,7 @@
     "@radix-ui/react-tooltip": "^1.1.4",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "embla-carousel-react": "^8.5.1",
     "firebase": "^11.0.1",
     "firebase-admin": "^13.0.0",
     "lucide-react": "^0.460.0",

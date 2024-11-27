@@ -1,3 +1,51 @@
+# [1.8.0](https://github.com/leogrigs/easy-cards/compare/v1.7.0...v1.8.0) (2024-11-26)
+
+
+### Bug Fixes
+
+* update module routes ([3b7c525](https://github.com/leogrigs/easy-cards/commit/3b7c525a126cce9dddc1553c1162cfe0e819ee64))
+
+
+### Features
+
+* play module page initial layout ([e13c1ef](https://github.com/leogrigs/easy-cards/commit/e13c1efbdcbf309b11760371d6ea14999073d1f0))
+* play module v1 ([8ed0d83](https://github.com/leogrigs/easy-cards/commit/8ed0d835634decf38a5f1175ea49eed2f92c8228))
+
+# [1.7.0](https://github.com/leogrigs/easy-cards/compare/v1.6.0...v1.7.0) (2024-11-25)
+
+
+### Features
+
+* include loader on dashboard page ([564beba](https://github.com/leogrigs/easy-cards/commit/564beba081cf06ad2e3507bf52a2b5bf498b31f2))
+
+# [1.6.0](https://github.com/leogrigs/easy-cards/compare/v1.5.0...v1.6.0) (2024-11-23)
+
+
+### Bug Fixes
+
+* remove redirect to /dashboard when user is not null ([a408ff9](https://github.com/leogrigs/easy-cards/commit/a408ff9a6655ea95ce7f02f34a20b498d8cd354c))
+
+
+### Features
+
+* explore modules page initial structure ([d6814c0](https://github.com/leogrigs/easy-cards/commit/d6814c0f77521036ebdf8097399bd72d9b31cee0))
+* get public modules from firestore using query ([08983d5](https://github.com/leogrigs/easy-cards/commit/08983d5121fdb3806d6eb2f7d026058edac5cccb))
+
+# [1.5.0](https://github.com/leogrigs/easy-cards/compare/v1.4.0...v1.5.0) (2024-11-21)
+
+
+### Features
+
+* initial view module page ([1273081](https://github.com/leogrigs/easy-cards/commit/12730814142daeb0e723dd3634feb61e4e6ff952))
+
+# [1.4.0](https://github.com/leogrigs/easy-cards/compare/v1.3.0...v1.4.0) (2024-11-21)
+
+
+### Features
+
+* include new module to users array ([3d50f51](https://github.com/leogrigs/easy-cards/commit/3d50f51420b42d8c9d62029356f8fa8189490658))
+* module creation integration ([d234fc9](https://github.com/leogrigs/easy-cards/commit/d234fc94130412994614cb14b7b874ec5a624b94))
+
 # [1.3.0](https://github.com/leogrigs/easy-cards/compare/v1.2.0...v1.3.0) (2024-11-18)
 
 

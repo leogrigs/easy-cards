@@ -78,7 +78,7 @@ export default function DashboardPage() {
                 <div className="w-full flex justify-between gap-2">
                   <Button asChild variant="ghost">
                     <Link
-                      href={`/dashboard/modules/${module.id}`}
+                      href={`/modules/${module.id}`}
                       className="dark:text-white"
                     >
                       <Eye />
@@ -86,7 +86,7 @@ export default function DashboardPage() {
                   </Button>
                   <Button asChild variant="ghost">
                     <Link
-                      href={`/dashboard/modules/play/${module.id}`}
+                      href={`/modules/play/${module.id}`}
                       className="dark:text-white"
                     >
                       <Play />
