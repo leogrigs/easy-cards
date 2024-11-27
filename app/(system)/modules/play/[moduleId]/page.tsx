@@ -3,6 +3,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import {
   Carousel,
+  CarouselApi,
   CarouselContent,
   CarouselItem,
   CarouselNext,
@@ -22,6 +23,9 @@ export default function PlayModulePage() {
   const [flippedCards, setFlippedCards] = useState<{ [key: number]: boolean }>(
     {}
   );
+  const [api, setApi] = useState<CarouselApi>();
+  const [current, setCurrent] = useState(0);
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
     if (!moduleId) return;
@@ -48,6 +52,19 @@ export default function PlayModulePage() {
     fetchModule();
   }, [moduleId]);
 
+  useEffect(() => {
+    if (!api) {
+      return;
+    }
+
+    setCount(api.scrollSnapList().length);
+    setCurrent(api.selectedScrollSnap() + 1);
+
+    api.on("select", () => {
+      setCurrent(api.selectedScrollSnap() + 1);
+    });
+  }, [api]);
+
   const toggleCardFlip = (index: number) => {
     setFlippedCards((prev) => ({ ...prev, [index]: !prev[index] }));
   };
@@ -67,7 +84,7 @@ export default function PlayModulePage() {
       {/* Module Header */}
       <div className="text-center">
         <h3 className="text-3xl font-bold text-zinc-900 dark:text-zinc-50 mb-2">
-          Module: {module?.name}
+          {module?.name}
         </h3>
         <p className="text-base text-zinc-600 dark:text-zinc-400 max-w-xl">
           {module?.description}
@@ -75,7 +92,7 @@ export default function PlayModulePage() {
       </div>
 
       {/* Cards Carousel */}
-      <Carousel className="w-full max-w-lg">
+      <Carousel className="w-full max-w-lg" setApi={setApi}>
         <CarouselContent>
           {module?.cards.map((card, index) => (
             <CarouselItem key={index}>
@@ -132,6 +149,9 @@ export default function PlayModulePage() {
         <CarouselPrevious />
         <CarouselNext />
       </Carousel>
+      <div className="py-2 text-center text-sm text-muted-foreground dark:text-white">
+        Card {current} of {count}
+      </div>
     </div>
   );
 }
