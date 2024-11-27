@@ -1,3 +1,10 @@
+# [1.9.0](https://github.com/leogrigs/easy-cards/compare/v1.8.0...v1.9.0) (2024-11-27)
+
+
+### Features
+
+* include counter indicator on module play view ([00440db](https://github.com/leogrigs/easy-cards/commit/00440dbf658ee46e6f8f0f19ae75fa91c6332350))
+
 # [1.8.0](https://github.com/leogrigs/easy-cards/compare/v1.7.0...v1.8.0) (2024-11-26)
 
 
