@@ -100,3 +100,24 @@ export async function getPublicModules(): Promise<Module[]> {
     ...doc.data(),
   })) as Module[];
 }
+
+/**
+ * Deletes a module from the user's modules array.
+ * @param userId The user id to delete the module from.
+ * @param moduleId
+ */
+export async function deleteModuleFromUser(userId: string, moduleId: string) {
+  const userRef = doc(firestore, "users", userId);
+  const userSnapshot = await getDoc(userRef);
+
+  if (userSnapshot.exists()) {
+    const userData = userSnapshot.data();
+    const modules = userData.modules || [];
+
+    const newModules = modules.filter(
+      (module: Module) => module.id !== moduleId
+    );
+
+    await setDoc(userRef, { modules: newModules }, { merge: true });
+  }
+}
