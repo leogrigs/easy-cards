@@ -1,3 +1,10 @@
+# [1.10.0](https://github.com/leogrigs/easy-cards/compare/v1.9.0...v1.10.0) (2024-11-27)
+
+
+### Features
+
+* delete module from user integration ([4cd35ad](https://github.com/leogrigs/easy-cards/commit/4cd35adb02987e8c55ee41b12e3e9d6ddbc84a96))
+
 # [1.9.0](https://github.com/leogrigs/easy-cards/compare/v1.8.0...v1.9.0) (2024-11-27)
 
 
