@@ -4,56 +4,59 @@ import { Button } from "@/components/ui/button";
 import { getPublicModules } from "@/firebase/firestore";
 import { Module } from "@/interfaces/module.interface";
 import { Eye, Plus } from "lucide-react";
-import Link from "next/dist/client/link";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function ExplorePage() {
   const [modules, setModules] = useState<Module[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchModules = async () => {
-      const modules = await getPublicModules();
-      console.log(modules);
-      setModules(modules);
+      try {
+        const modules = await getPublicModules();
+        setModules(modules);
+      } finally {
+        setLoading(false);
+      }
     };
 
     fetchModules();
   }, []);
 
   return (
-    <>
-      {modules.length > 0 ? (
+    <div className="p-4 sm:p-8">
+      {loading ? (
+        <div className="flex justify-center items-center h-screen">
+          <div className="w-8 h-8 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin"></div>
+        </div>
+      ) : modules.length > 0 ? (
         <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-          {modules.map((module, index: number) => (
+          {modules.map((module) => (
             <div
-              key={index}
-              className="flex flex-col p-2 gap-2 justify-between relative border border-slate-800 rounded-sm"
+              key={module.id}
+              className="flex flex-col p-4 gap-2 border border-slate-800 rounded-lg shadow-md"
             >
               {/* Module Title */}
               <h2 className="text-lg text-center font-semibold text-gray-900 dark:text-gray-100">
                 {module.name}
               </h2>
 
-              <h2 className="text-sm text-center text-gray-900 dark:text-gray-500">
+              {/* Module Description */}
+              <p className="text-sm text-center text-gray-600 dark:text-gray-400">
                 {module.description}
-              </h2>
+              </p>
 
               {/* Actions */}
               <div className="w-full flex justify-between gap-2">
-                <Button asChild variant="ghost">
-                  <Link
-                    href={`/dashboard/modules/${module.id}`}
-                    className="dark:text-white"
-                  >
-                    <Eye />
+                <Button asChild variant="ghost" size="sm">
+                  <Link href={`/dashboard/modules/${module.id}`}>
+                    <Eye className="h-4 w-4" /> View
                   </Link>
                 </Button>
-                <Button asChild variant="ghost">
-                  <Link
-                    href={`/dashboard/modules/edit/${module.id}`}
-                    className="dark:text-white"
-                  >
-                    <Plus />
+                <Button asChild variant="ghost" size="sm">
+                  <Link href={`/dashboard/modules/edit/${module.id}`}>
+                    <Plus className="h-4 w-4" /> Edit
                   </Link>
                 </Button>
               </div>
@@ -61,22 +64,17 @@ export default function ExplorePage() {
           ))}
         </div>
       ) : (
-        <div className="flex flex-col items-center">
-          <p className="mb-4 text-gray-600 dark:text-gray-400 text-center">
-            You do not have any modules yet.
+        <div className="flex flex-col items-center justify-center">
+          <p className="mb-6 text-gray-600 dark:text-gray-400 text-center">
+            No modules found. Create a new one to get started.
           </p>
-          <div className="flex gap-4">
-            <Link href="/dashboard/new-module">
-              <button className="px-4 py-2 text-white bg-green-600 rounded-lg hover:bg-green-700">
-                Create Module
-              </button>
+          <Button asChild variant="link" className="flex items-center gap-2">
+            <Link href="/modules/new-module">
+              <Plus className="h-5 w-5" /> Create Module
             </Link>
-            <button className="px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700">
-              Explore Modules
-            </button>
-          </div>
+          </Button>
         </div>
       )}
-    </>
+    </div>
   );
 }
