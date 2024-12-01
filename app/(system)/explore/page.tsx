@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { getPublicModules, updateUserModules } from "@/firebase/firestore";
+import { useToast } from "@/hooks/use-toast";
 import { Module } from "@/interfaces/module.interface";
 import { useAuth } from "@/providers/AuthContext";
 import { Eye, Plus } from "lucide-react";
@@ -12,6 +13,7 @@ export default function ExplorePage() {
   const [modules, setModules] = useState<Module[]>([]);
   const [loading, setLoading] = useState(true);
   const { user } = useAuth();
+  const { toast } = useToast();
 
   useEffect(() => {
     const fetchModules = async () => {
@@ -30,7 +32,10 @@ export default function ExplorePage() {
     if (!user) return;
     setLoading(true);
     await updateUserModules(user.uid, module.id, module.name);
-    // TODO: provide feedback to user
+    toast({
+      title: "Module added",
+      description: `Module ${module.name} added to your modules`,
+    });
     setLoading(false);
   };
 
