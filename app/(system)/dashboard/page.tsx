@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { deleteModuleFromUser, getUserData } from "@/firebase/firestore";
+import { useToast } from "@/hooks/use-toast";
 import { UserData } from "@/interfaces/user-data.interface";
 import { useAuth } from "@/providers/AuthContext";
 import { Eye, Play, Plus, Search, Trash } from "lucide-react";
@@ -12,8 +13,9 @@ import { useEffect, useState } from "react";
 export default function DashboardPage() {
   const { user } = useAuth();
   const [userData, setUserData] = useState<UserData | null>(null);
-  const [loading, setLoading] = useState(true); // Loader state
+  const [loading, setLoading] = useState(true);
   const modules = userData ? [...userData.modules] : [];
+  const { toast } = useToast();
 
   useEffect(() => {
     fetchUserData();
@@ -38,6 +40,10 @@ export default function DashboardPage() {
     setLoading(true);
     await deleteModuleFromUser(user.uid, moduleId);
     await fetchUserData();
+    toast({
+      title: "Module deleted",
+      description: "Your module has been deleted successfully.",
+    });
   };
 
   if (loading) {
@@ -61,6 +67,15 @@ export default function DashboardPage() {
         </header>
 
         <Separator className="mb-8" />
+
+        <div className="mb-8">
+          <Button asChild variant="outline">
+            <Link href="/modules/new-module">
+              <Plus />
+              Create Module
+            </Link>
+          </Button>
+        </div>
 
         {modules.length > 0 ? (
           <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
@@ -108,12 +123,6 @@ export default function DashboardPage() {
               You do not have any modules yet.
             </p>
             <div className="flex gap-4">
-              <Button asChild variant="link">
-                <Link href="/modules/new-module">
-                  <Plus />
-                  Create Module
-                </Link>
-              </Button>
               <Button asChild variant="link">
                 <Link href="/explore">
                   Explore Modules <Search />
