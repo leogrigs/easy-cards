@@ -1,3 +1,10 @@
+## [1.11.1](https://github.com/leogrigs/easy-cards/compare/v1.11.0...v1.11.1) (2024-12-01)
+
+
+### Bug Fixes
+
+* view module link on explore page ([0482c43](https://github.com/leogrigs/easy-cards/commit/0482c43c4ef85b889b324a7ba9378151ccd644bf))
+
 # [1.11.0](https://github.com/leogrigs/easy-cards/compare/v1.10.0...v1.11.0) (2024-12-01)
 
 
