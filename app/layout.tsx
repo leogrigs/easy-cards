@@ -16,8 +16,10 @@ export default function RootLayout({
   return (
     <AuthProvider>
       <html lang="en" className="dark">
-        <body>{children}</body>
-        <Toaster />
+        <body>
+          {children}
+          <Toaster />
+        </body>
       </html>
     </AuthProvider>
   );
