@@ -1,8 +1,9 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { getPublicModules } from "@/firebase/firestore";
+import { getPublicModules, updateUserModules } from "@/firebase/firestore";
 import { Module } from "@/interfaces/module.interface";
+import { useAuth } from "@/providers/AuthContext";
 import { Eye, Plus } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -10,6 +11,7 @@ import { useEffect, useState } from "react";
 export default function ExplorePage() {
   const [modules, setModules] = useState<Module[]>([]);
   const [loading, setLoading] = useState(true);
+  const { user } = useAuth();
 
   useEffect(() => {
     const fetchModules = async () => {
@@ -23,6 +25,14 @@ export default function ExplorePage() {
 
     fetchModules();
   }, []);
+
+  const addModuleToUser = async (module: Module) => {
+    if (!user) return;
+    setLoading(true);
+    await updateUserModules(user.uid, module.id, module.name);
+    // TODO: provide feedback to user
+    setLoading(false);
+  };
 
   return (
     <div className="p-4 sm:p-8">
@@ -54,10 +64,12 @@ export default function ExplorePage() {
                     <Eye className="h-4 w-4" /> View
                   </Link>
                 </Button>
-                <Button asChild variant="ghost" size="sm">
-                  <Link href={`/dashboard/modules/edit/${module.id}`}>
-                    <Plus className="h-4 w-4" /> Edit
-                  </Link>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => addModuleToUser(module)}
+                >
+                  <Plus className="h-4 w-4" /> Add
                 </Button>
               </div>
             </div>

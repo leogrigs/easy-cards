@@ -80,6 +80,14 @@ export async function updateUserModules(
       name: moduleName,
     };
 
+    const moduleExists = modules.some(
+      (module: Module) => module.id === moduleId
+    );
+
+    if (moduleExists) {
+      return;
+    }
+
     modules.push(newModule);
 
     await setDoc(userRef, { modules }, { merge: true });
