@@ -1,3 +1,13 @@
+# [1.12.0](https://github.com/leogrigs/easy-cards/compare/v1.11.1...v1.12.0) (2024-12-01)
+
+
+### Features
+
+* always show create module button on dashboard page ([0d2c3e5](https://github.com/leogrigs/easy-cards/commit/0d2c3e5ca718b33b44462bbc49723f359ba8ad55))
+* include toast feedback on adding module ([a041336](https://github.com/leogrigs/easy-cards/commit/a04133630f0bb8b313e2b2f7001f00d43a292c21))
+* include toast for module creation feedback ([1fab094](https://github.com/leogrigs/easy-cards/commit/1fab09446dc1255e3d5f0898e1c5600440f6fca7))
+* provide delete feedback on dashboard page ([1138ff9](https://github.com/leogrigs/easy-cards/commit/1138ff94e0c96b28016c2386b33efbf1c6e0b1b9))
+
 ## [1.11.1](https://github.com/leogrigs/easy-cards/compare/v1.11.0...v1.11.1) (2024-12-01)
 
 
