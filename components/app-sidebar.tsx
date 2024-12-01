@@ -11,7 +11,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { cn } from "@/lib/utils"; // Utility for conditional classNames if available
+import { cn } from "@/lib/utils";
 import { useAuth } from "@/providers/AuthContext";
 import { LayoutDashboard, LogOut, Search, Settings, Zap } from "lucide-react";
 
@@ -21,7 +21,6 @@ const navigationItems = [
     url: "/dashboard",
     icon: LayoutDashboard,
   },
-  // TODO: change folder structure to use just /modules or /explore
   {
     title: "Explore",
     url: "/explore",
@@ -80,7 +79,7 @@ export function AppSidebar() {
           <SidebarMenuItem>
             <SidebarMenuButton
               onClick={logout}
-              className="flex items-center space-x-2 px-4 py-2 text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md transition-colors"
+              className="flex items-center mb-8 space-x-2 px-4 py-2 text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md transition-colors"
             >
               <LogOut className="h-5 w-5" />
               <span>Logout</span>
