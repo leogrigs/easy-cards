@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
+import { useToast } from "@/hooks/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@radix-ui/react-tabs";
 import { Plus } from "lucide-react";
@@ -46,6 +47,7 @@ export default function CreateModulePage() {
       cards: [],
     },
   });
+  const { toast } = useToast();
 
   const handleAddCard = (front: string, back: string) => {
     setCards([...cards, { front, back }]);
@@ -58,6 +60,10 @@ export default function CreateModulePage() {
   const handleClearForm = () => {
     form.reset();
     setCards([]);
+    toast({
+      title: "Form cleared",
+      description: "Your form has been cleared successfully.",
+    });
   };
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
@@ -66,8 +72,17 @@ export default function CreateModulePage() {
         type: "manual",
         message: "You must add at least one card.",
       });
+      toast({
+        title: "Error",
+        description: "You must add at least one card.",
+        variant: "destructive",
+      });
       return;
     }
+    toast({
+      title: "Module created",
+      description: "Your module has been created successfully.",
+    });
     console.log("Form Values:", { ...values, cards });
   };
 
