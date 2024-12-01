@@ -1,12 +1,10 @@
 "use client";
 
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { firestore } from "@/firebase/clientApp";
 import { Module } from "@/interfaces/module.interface";
 import { doc, getDoc } from "firebase/firestore";
-import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -81,12 +79,6 @@ export default function ViewModulePage() {
             <p className="text-gray-700 dark:text-gray-300">{card.back}</p>
           </div>
         ))}
-      </div>
-
-      <div className="mt-6">
-        <Link href={`/dashboard/modules/edit/${moduleId}`}>
-          <Button>Edit Module</Button>
-        </Link>
       </div>
     </div>
   );
