@@ -1,11 +1,12 @@
 "use client";
 
+import { AppModule } from "@/components/app-module";
 import { Button } from "@/components/ui/button";
 import { getPublicModules, updateUserModules } from "@/firebase/firestore";
 import { useToast } from "@/hooks/use-toast";
 import { Module } from "@/interfaces/module.interface";
 import { useAuth } from "@/providers/AuthContext";
-import { Eye, Plus } from "lucide-react";
+import { Plus } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -48,36 +49,12 @@ export default function ExplorePage() {
       ) : modules.length > 0 ? (
         <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {modules.map((module) => (
-            <div
+            <AppModule
+              module={module}
+              type="explore"
+              onAdd={addModuleToUser}
               key={module.id}
-              className="flex flex-col p-4 gap-2 border border-slate-800 rounded-lg shadow-md"
-            >
-              {/* Module Title */}
-              <h2 className="text-lg text-center font-semibold text-gray-900 dark:text-gray-100">
-                {module.name}
-              </h2>
-
-              {/* Module Description */}
-              <p className="text-sm text-center text-gray-600 dark:text-gray-400">
-                {module.description}
-              </p>
-
-              {/* Actions */}
-              <div className="w-full flex justify-between gap-2">
-                <Button asChild variant="ghost" size="sm">
-                  <Link href={`/modules/${module.id}`}>
-                    <Eye className="h-4 w-4" /> View
-                  </Link>
-                </Button>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => addModuleToUser(module)}
-                >
-                  <Plus className="h-4 w-4" /> Add
-                </Button>
-              </div>
-            </div>
+            />
           ))}
         </div>
       ) : (
