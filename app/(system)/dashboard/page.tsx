@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { deleteModuleFromUser, getUserData } from "@/firebase/firestore";
+import { useToast } from "@/hooks/use-toast";
 import { UserData } from "@/interfaces/user-data.interface";
 import { useAuth } from "@/providers/AuthContext";
 import { Eye, Play, Plus, Search, Trash } from "lucide-react";
@@ -12,8 +13,9 @@ import { useEffect, useState } from "react";
 export default function DashboardPage() {
   const { user } = useAuth();
   const [userData, setUserData] = useState<UserData | null>(null);
-  const [loading, setLoading] = useState(true); // Loader state
+  const [loading, setLoading] = useState(true);
   const modules = userData ? [...userData.modules] : [];
+  const { toast } = useToast();
 
   useEffect(() => {
     fetchUserData();
@@ -38,6 +40,10 @@ export default function DashboardPage() {
     setLoading(true);
     await deleteModuleFromUser(user.uid, moduleId);
     await fetchUserData();
+    toast({
+      title: "Module deleted",
+      description: "Your module has been deleted successfully.",
+    });
   };
 
   if (loading) {
