@@ -1,3 +1,4 @@
+import { Toaster } from "@/components/ui/toaster";
 import type { Metadata } from "next";
 import { AuthProvider } from "../providers/AuthContext";
 import "./globals.css";
@@ -16,6 +17,7 @@ export default function RootLayout({
     <AuthProvider>
       <html lang="en" className="dark">
         <body>{children}</body>
+        <Toaster />
       </html>
     </AuthProvider>
   );
