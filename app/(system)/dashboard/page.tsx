@@ -62,6 +62,15 @@ export default function DashboardPage() {
 
         <Separator className="mb-8" />
 
+        <div className="mb-8">
+          <Button asChild variant="outline">
+            <Link href="/modules/new-module">
+              <Plus />
+              Create Module
+            </Link>
+          </Button>
+        </div>
+
         {modules.length > 0 ? (
           <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {modules.map((module, index: number) => (
@@ -108,12 +117,6 @@ export default function DashboardPage() {
               You do not have any modules yet.
             </p>
             <div className="flex gap-4">
-              <Button asChild variant="link">
-                <Link href="/modules/new-module">
-                  <Plus />
-                  Create Module
-                </Link>
-              </Button>
               <Button asChild variant="link">
                 <Link href="/explore">
                   Explore Modules <Search />
