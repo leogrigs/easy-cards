@@ -60,7 +60,7 @@ export default function ExplorePage() {
               {/* Actions */}
               <div className="w-full flex justify-between gap-2">
                 <Button asChild variant="ghost" size="sm">
-                  <Link href={`/dashboard/modules/${module.id}`}>
+                  <Link href={`/modules/${module.id}`}>
                     <Eye className="h-4 w-4" /> View
                   </Link>
                 </Button>
