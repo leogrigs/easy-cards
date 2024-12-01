@@ -1,12 +1,13 @@
 "use client";
 
+import { AppModule } from "@/components/app-module";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { deleteModuleFromUser, getUserData } from "@/firebase/firestore";
 import { useToast } from "@/hooks/use-toast";
 import { UserData } from "@/interfaces/user-data.interface";
 import { useAuth } from "@/providers/AuthContext";
-import { Eye, Play, Plus, Search, Trash } from "lucide-react";
+import { Plus, Search } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -79,42 +80,12 @@ export default function DashboardPage() {
 
         {modules.length > 0 ? (
           <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-            {modules.map((module, index: number) => (
-              <div
-                key={index}
-                className="flex flex-col p-2 gap-2 justify-between relative border border-slate-800 rounded-sm"
-              >
-                {/* Module Title */}
-                <h2 className="text-lg text-center font-semibold text-gray-900 dark:text-gray-100">
-                  {module.name}
-                </h2>
-
-                {/* Actions */}
-                <div className="w-full flex justify-between gap-2">
-                  <Button asChild variant="ghost">
-                    <Link
-                      href={`/modules/${module.id}`}
-                      className="dark:text-white"
-                    >
-                      <Eye />
-                    </Link>
-                  </Button>
-                  <Button asChild variant="ghost">
-                    <Link
-                      href={`/modules/play/${module.id}`}
-                      className="dark:text-white"
-                    >
-                      <Play />
-                    </Link>
-                  </Button>
-                  <Button
-                    onClick={() => deleteModule(module.id)}
-                    variant="ghost"
-                  >
-                    <Trash className="dark:text-white" />
-                  </Button>
-                </div>
-              </div>
+            {modules.map((module) => (
+              <AppModule
+                module={module}
+                onDelete={deleteModule}
+                key={module.id}
+              />
             ))}
           </div>
         ) : (
