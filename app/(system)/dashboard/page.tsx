@@ -50,7 +50,7 @@ export default function DashboardPage() {
 
   return (
     <div className="flex flex-col">
-      <div className="w-full max-w-5xl p-4">
+      <div className="w-full p-4">
         <header className="mb-8">
           <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
             Your Modules
