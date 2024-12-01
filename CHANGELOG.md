@@ -1,3 +1,10 @@
+# [1.11.0](https://github.com/leogrigs/easy-cards/compare/v1.10.0...v1.11.0) (2024-12-01)
+
+
+### Features
+
+* add module to user explore page integration ([c6c48c5](https://github.com/leogrigs/easy-cards/commit/c6c48c5cafe8fdfd69319ce998d4bbfbf9da17f3))
+
 # [1.10.0](https://github.com/leogrigs/easy-cards/compare/v1.9.0...v1.10.0) (2024-11-27)
 
 
