@@ -12,66 +12,85 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@radix-ui/react-tabs";
 import { Plus } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 const formSchema = z.object({
-  name: z.string().min(3, {
-    message: "Module name must be at least 3 characters.",
-  }),
-  description: z.string().min(10, {
-    message: "Module description must be at least 10 characters.",
-  }),
+  name: z
+    .string()
+    .min(3, { message: "Module name must be at least 3 characters." }),
+  description: z
+    .string()
+    .min(10, { message: "Module description must be at least 10 characters." }),
   public: z.boolean(),
-  cards: z.array(
-    z.object({
-      front: z.string().min(1, { message: "Front cannot be empty" }),
-      back: z.string().min(1, { message: "Back cannot be empty" }),
-    })
-  ),
 });
 
 export default function CreateModulePage() {
+  const { toast } = useToast();
   const [cards, setCards] = useState<{ front: string; back: string }[]>([]);
+  const [jsonInput, setJsonInput] = useState<string>("");
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
       description: "",
       public: false,
-      cards: [],
     },
   });
-  const { toast } = useToast();
 
   const handleAddCard = (front: string, back: string) => {
+    if (!front || !back) {
+      toast({
+        title: "Error",
+        description: "Both Front and Back are required.",
+        variant: "destructive",
+      });
+      return;
+    }
     setCards([...cards, { front, back }]);
+  };
+
+  const handleBulkAdd = () => {
+    try {
+      const parsedCards = JSON.parse(jsonInput);
+
+      if (
+        !Array.isArray(parsedCards) ||
+        !parsedCards.every(
+          (card) =>
+            typeof card.front === "string" && typeof card.back === "string"
+        )
+      ) {
+        throw new Error("Invalid format.");
+      }
+
+      setCards([...cards, ...parsedCards]);
+      setJsonInput("");
+      toast({ title: "Success", description: "Cards added successfully." });
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (error) {
+      toast({
+        title: "Error",
+        description:
+          "Invalid JSON format. Ensure it's an array of objects with 'front' and 'back'.",
+        variant: "destructive",
+      });
+    }
   };
 
   const handleRemoveCard = (index: number) => {
     setCards(cards.filter((_, i) => i !== index));
   };
 
-  const handleClearForm = () => {
-    form.reset();
-    setCards([]);
-    toast({
-      title: "Form cleared",
-      description: "Your form has been cleared successfully.",
-    });
-  };
-
   const onSubmit = (values: z.infer<typeof formSchema>) => {
     if (cards.length === 0) {
-      form.setError("cards", {
-        type: "manual",
-        message: "You must add at least one card.",
-      });
       toast({
         title: "Error",
         description: "You must add at least one card.",
@@ -79,37 +98,33 @@ export default function CreateModulePage() {
       });
       return;
     }
+
     toast({
       title: "Module created",
       description: "Your module has been created successfully.",
     });
-    console.log("Form Values:", { ...values, cards });
+    console.log("Module Data:", values);
+    console.log("Cards:", cards);
   };
 
   return (
-    <div className="w-full max-w-4xl p-8">
+    <div className="w-full max-w-4xl mx-auto p-6">
       <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">
         Create a New Module
       </h2>
 
-      <Tabs defaultValue="module" className="mb-8">
-        <TabsList className="grid w-full grid-cols-2 my-8 gap-2">
-          <TabsTrigger
-            value="module"
-            className="px-4 py-2 text-center border-b-2 transition-colors duration-200 dark:border-zinc-800 dark:hover:border-white dark:text-zinc-400 hover:text-black dark:hover:text-white aria-selected:border-white aria-selected:dark:border-white aria-selected:text-black aria-selected:dark:text-white"
-          >
-            Module
-          </TabsTrigger>
-          <TabsTrigger
-            value="cards"
-            className="px-4 py-2 text-center border-b-2 transition-colors duration-200 dark:border-zinc-800 dark:hover:border-white dark:text-zinc-400 hover:text-black dark:hover:text-white aria-selected:border-white aria-selected:dark:border-white aria-selected:text-black aria-selected:dark:text-white"
-          >
-            Cards
-          </TabsTrigger>
+      {/* Tabs Section */}
+      <Tabs defaultValue="module">
+        <TabsList className="mb-8 grid w-full grid-cols-2 gap-2">
+          <TabsTrigger value="module">Module</TabsTrigger>
+          <TabsTrigger value="cards">Cards</TabsTrigger>
         </TabsList>
+
+        {/* Module Tab */}
         <TabsContent value="module">
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+              {/* Module Name */}
               <FormField
                 control={form.control}
                 name="name"
@@ -117,16 +132,17 @@ export default function CreateModulePage() {
                   <FormItem>
                     <FormLabel>Module Name</FormLabel>
                     <FormControl>
-                      <Input placeholder="e.g. Biology" {...field} />
+                      <Input placeholder="Enter module name" {...field} />
                     </FormControl>
                     <FormDescription>
-                      This is your module display name.
+                      This is the name that will be displayed for your module.
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
               />
 
+              {/* Module Description */}
               <FormField
                 control={form.control}
                 name="description"
@@ -135,18 +151,19 @@ export default function CreateModulePage() {
                     <FormLabel>Description</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="A brief description of your module"
+                        placeholder="Enter module description"
                         {...field}
                       />
                     </FormControl>
                     <FormDescription>
-                      Provide details about what this module covers.
+                      Provide a brief description of this module.
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
               />
 
+              {/* Public Toggle */}
               <FormField
                 control={form.control}
                 name="public"
@@ -162,7 +179,7 @@ export default function CreateModulePage() {
                       </FormControl>
                     </div>
                     <FormDescription>
-                      Toggle to make this module visible to others.
+                      Make this module visible to others.
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
@@ -171,56 +188,76 @@ export default function CreateModulePage() {
             </form>
           </Form>
         </TabsContent>
+
+        {/* Cards Tab */}
         <TabsContent value="cards">
-          <div>
-            <h3 className="text-lg font-semibold dark:text-white mb-4">
-              Cards
-            </h3>
-            <div className="space-y-4">
-              <div className="flex space-x-2">
-                <Input placeholder="Front" className="flex-1" id="cardFront" />
-                <Input placeholder="Back" className="flex-1" id="cardBack" />
-                <Button
-                  onClick={() =>
-                    handleAddCard(
-                      (document.getElementById("cardFront") as HTMLInputElement)
-                        .value,
-                      (document.getElementById("cardBack") as HTMLInputElement)
-                        .value
-                    )
-                  }
-                >
-                  Add
-                </Button>
-              </div>
-              {cards.map((card, index) => (
-                <div
-                  key={index}
-                  className="p-4 border rounded-lg flex justify-between items-center"
-                >
-                  <div>
-                    <p className="text-sm font-semibold">Front: {card.front}</p>
-                    <p className="text-sm text-gray-500">Back: {card.back}</p>
-                  </div>
-                  <Button
-                    variant="destructive"
-                    onClick={() => handleRemoveCard(index)}
-                  >
-                    Remove
-                  </Button>
-                </div>
-              ))}
+          {/* Manual Card Creation */}
+          <div className="space-y-4 mb-6">
+            <h4 className="text-lg font-semibold">Manual Creation</h4>
+            <div className="flex gap-4 items-center">
+              <Input id="manualFront" placeholder="Front" />
+              <Input id="manualBack" placeholder="Back" />
+              <Button
+                onClick={() =>
+                  handleAddCard(
+                    (document.getElementById("manualFront") as HTMLInputElement)
+                      .value,
+                    (document.getElementById("manualBack") as HTMLInputElement)
+                      .value
+                  )
+                }
+              >
+                Add
+              </Button>
             </div>
+          </div>
+
+          {/* Bulk Card Creation */}
+          <div className="space-y-4 mb-6">
+            <h4 className="text-lg font-semibold">Bulk Creation</h4>
+            <Textarea
+              placeholder={`Enter cards in JSON format, e.g.:\n[\n  {"front": "Q1", "back": "A1"},\n  {"front": "Q2", "back": "A2"}\n]`}
+              value={jsonInput}
+              onChange={(e) => setJsonInput(e.target.value)}
+              rows={5}
+              className="resize-none"
+            />
+            <Button onClick={handleBulkAdd}>Apply</Button>
+          </div>
+
+          {/* Shared Card Visualization */}
+          <div>
+            <h4 className="text-lg font-semibold mb-4">Current Cards</h4>
+            {cards.length > 0 ? (
+              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                {cards.map((card, index) => (
+                  <div key={index} className="p-4 border rounded-lg">
+                    <p className="font-semibold">Front: {card.front}</p>
+                    <p className="text-gray-500">Back: {card.back}</p>
+                    <Button
+                      variant="destructive"
+                      onClick={() => handleRemoveCard(index)}
+                      className="mt-2"
+                    >
+                      Remove
+                    </Button>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className="text-gray-500">No cards added yet.</p>
+            )}
           </div>
         </TabsContent>
       </Tabs>
 
+      {/* Action Buttons */}
       <div className="flex justify-between mt-8">
-        <Button variant="secondary" onClick={handleClearForm}>
-          Clear Form
+        <Button variant="secondary" onClick={() => setCards([])}>
+          Clear Cards
         </Button>
-        <Button type="submit" onClick={form.handleSubmit(onSubmit)}>
-          <Plus />
+        <Button onClick={form.handleSubmit(onSubmit)}>
+          <Plus className="mr-2" />
           Create Module
         </Button>
       </div>
