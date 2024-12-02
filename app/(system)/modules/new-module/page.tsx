@@ -16,7 +16,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Plus } from "lucide-react";
+import { Plus, Trash } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -231,16 +231,21 @@ export default function CreateModulePage() {
             {cards.length > 0 ? (
               <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
                 {cards.map((card, index) => (
-                  <div key={index} className="p-4 border rounded-lg">
-                    <p className="font-semibold">Front: {card.front}</p>
-                    <p className="text-gray-500">Back: {card.back}</p>
-                    <Button
-                      variant="destructive"
-                      onClick={() => handleRemoveCard(index)}
-                      className="mt-2"
-                    >
-                      Remove
-                    </Button>
+                  <div
+                    key={index}
+                    className="p-4 border rounded-lg flex flex-col gap-2 items-center text-center"
+                  >
+                    <div className="flex w-full justify-end">
+                      <Button
+                        variant="ghost"
+                        onClick={() => handleRemoveCard(index)}
+                        className="h-4 w-4 p-0"
+                      >
+                        <Trash className="h-4 w-4" />
+                      </Button>
+                    </div>
+                    <p className="text-lg font-semibold">{card.front}</p>
+                    <p className="text-sm text-gray-500">{card.back}</p>
                   </div>
                 ))}
               </div>
