@@ -1,3 +1,15 @@
+# [1.13.0](https://github.com/leogrigs/easy-cards/compare/v1.12.0...v1.13.0) (2024-12-02)
+
+
+### Bug Fixes
+
+* module creation id and name issue ([6c4a8d3](https://github.com/leogrigs/easy-cards/commit/6c4a8d3112310947c7b80b8f70c8923571113799))
+
+
+### Features
+
+* adding bulking card feature using JSON parse on module creation ([0aac2bc](https://github.com/leogrigs/easy-cards/commit/0aac2bcb3b32bd4270385e2134ae8f9a06c295f2))
+
 # [1.12.0](https://github.com/leogrigs/easy-cards/compare/v1.11.1...v1.12.0) (2024-12-01)
 
 
