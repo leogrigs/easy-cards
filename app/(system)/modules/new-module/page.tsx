@@ -14,9 +14,14 @@ import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
+import { createModule, updateUserModules } from "@/firebase/firestore";
 import { useToast } from "@/hooks/use-toast";
+import { Card } from "@/interfaces/card.interface";
+import { Module } from "@/interfaces/module.interface";
+import { useAuth } from "@/providers/AuthContext";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Plus, Trash } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -33,7 +38,9 @@ const formSchema = z.object({
 
 export default function CreateModulePage() {
   const { toast } = useToast();
-  const [cards, setCards] = useState<{ front: string; back: string }[]>([]);
+  const { user } = useAuth();
+  const router = useRouter();
+  const [cards, setCards] = useState<Card[]>([]);
   const [jsonInput, setJsonInput] = useState<string>("");
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -54,7 +61,7 @@ export default function CreateModulePage() {
       });
       return;
     }
-    setCards([...cards, { front, back }]);
+    setCards([...cards, { id: Date.now().toString(), front, back }]);
   };
 
   const handleBulkAdd = () => {
@@ -89,7 +96,7 @@ export default function CreateModulePage() {
     setCards(cards.filter((_, i) => i !== index));
   };
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
     if (cards.length === 0) {
       toast({
         title: "Error",
@@ -98,13 +105,31 @@ export default function CreateModulePage() {
       });
       return;
     }
+    if (!user) return;
 
-    toast({
-      title: "Module created",
-      description: "Your module has been created successfully.",
-    });
-    console.log("Module Data:", values);
-    console.log("Cards:", cards);
+    const moduleData: Module = {
+      ...values,
+      id: Date.now().toString(),
+      ownerId: user.uid,
+      cards,
+    };
+
+    try {
+      const _module = await createModule(moduleData);
+      await updateUserModules(user.uid, _module.id, _module.name);
+      router.push(`/dashboard`);
+      toast({
+        title: "Module created",
+        description: "Your module has been created successfully.",
+      });
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to create module.",
+        variant: "destructive",
+      });
+    }
   };
 
   return (
