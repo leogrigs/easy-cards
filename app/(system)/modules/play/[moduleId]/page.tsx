@@ -1,6 +1,6 @@
 "use client";
 
-import { Card, CardContent } from "@/components/ui/card";
+import { AppCard } from "@/components/app-card";
 import {
   Carousel,
   CarouselApi,
@@ -20,9 +20,6 @@ export default function PlayModulePage() {
   const moduleId = searchParams["moduleId"];
   const [module, setModule] = useState<Module | null>(null);
   const [loading, setLoading] = useState(true);
-  const [flippedCards, setFlippedCards] = useState<{ [key: number]: boolean }>(
-    {}
-  );
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);
@@ -65,10 +62,6 @@ export default function PlayModulePage() {
     });
   }, [api]);
 
-  const toggleCardFlip = (index: number) => {
-    setFlippedCards((prev) => ({ ...prev, [index]: !prev[index] }));
-  };
-
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -96,53 +89,7 @@ export default function PlayModulePage() {
         <CarouselContent>
           {module?.cards.map((card, index) => (
             <CarouselItem key={index}>
-              <div
-                className="relative cursor-pointer p-2"
-                onClick={() => toggleCardFlip(index)}
-              >
-                <Card
-                  className={`group relative overflow-hidden transition-transform transform rounded-md`}
-                  style={{
-                    perspective: "1000px",
-                  }}
-                >
-                  <CardContent
-                    className="relative h-64 flex items-center justify-center rounded-lg"
-                    style={{
-                      transformStyle: "preserve-3d",
-                      transition: "transform 0.6s",
-                      transform: flippedCards[index]
-                        ? "rotateY(180deg)"
-                        : "rotateY(0deg)",
-                    }}
-                  >
-                    {/* Front of the Card */}
-                    <div
-                      className="absolute inset-0 flex items-center justify-center rounded-lg"
-                      style={{
-                        backfaceVisibility: "hidden",
-                      }}
-                    >
-                      <span className="text-2xl font-semibold text-zinc-900 dark:text-zinc-50">
-                        {card.front}
-                      </span>
-                    </div>
-
-                    {/* Back of the Card */}
-                    <div
-                      className="absolute inset-0 flex items-center justify-center rounded-lg"
-                      style={{
-                        backfaceVisibility: "hidden",
-                        transform: "rotateY(180deg)",
-                      }}
-                    >
-                      <span className="text-2xl font-semibold text-zinc-900 dark:text-zinc-50">
-                        {card.back}
-                      </span>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
+              <AppCard card={card} />
             </CarouselItem>
           ))}
         </CarouselContent>
