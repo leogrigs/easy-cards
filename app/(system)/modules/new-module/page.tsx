@@ -16,7 +16,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
 import { createModule, updateUserModules } from "@/firebase/firestore";
 import { useToast } from "@/hooks/use-toast";
-import { Card } from "@/interfaces/card.interface";
+import { ICard } from "@/interfaces/card.interface";
 import { Module } from "@/interfaces/module.interface";
 import { useAuth } from "@/providers/AuthContext";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -40,7 +40,7 @@ export default function CreateModulePage() {
   const { toast } = useToast();
   const { user } = useAuth();
   const router = useRouter();
-  const [cards, setCards] = useState<Card[]>([]);
+  const [cards, setCards] = useState<ICard[]>([]);
   const [jsonInput, setJsonInput] = useState<string>("");
 
   const form = useForm<z.infer<typeof formSchema>>({
