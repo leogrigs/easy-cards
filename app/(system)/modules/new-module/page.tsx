@@ -17,7 +17,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { createModule, updateUserModules } from "@/firebase/firestore";
 import { useToast } from "@/hooks/use-toast";
 import { ICard } from "@/interfaces/card.interface";
-import { Module } from "@/interfaces/module.interface";
+import { Module, ModulePreview } from "@/interfaces/module.interface";
 import { useAuth } from "@/providers/AuthContext";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Plus, Trash } from "lucide-react";
@@ -116,7 +116,15 @@ export default function CreateModulePage() {
 
     try {
       const _module = await createModule(moduleData);
-      await updateUserModules(user.uid, _module);
+      const _modulePreview: ModulePreview = {
+        id: _module.id,
+        name: _module.name,
+        description: _module.description,
+        public: _module.public,
+        ownerId: _module.ownerId,
+      };
+
+      await updateUserModules(user.uid, _modulePreview);
       router.push(`/dashboard`);
       toast({
         title: "Module created",
