@@ -116,7 +116,7 @@ export default function CreateModulePage() {
 
     try {
       const _module = await createModule(moduleData);
-      await updateUserModules(user.uid, _module.id, _module.name);
+      await updateUserModules(user.uid, _module);
       router.push(`/dashboard`);
       toast({
         title: "Module created",
