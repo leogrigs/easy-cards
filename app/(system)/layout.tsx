@@ -12,7 +12,7 @@ export default function DashboardLayout({
         <AppSidebar />
         <div className="flex-1">
           <SidebarTrigger className="dark: text-white" />
-          <div className="p-4">{children}</div>
+          <div className="p-1 md:p-4">{children}</div>
         </div>
       </SidebarProvider>
     </div>
