@@ -1,5 +1,7 @@
+import { ModulePreview } from "./module.interface";
+
 export interface UserData {
   id: string;
-  modules: any[];
-  createdAt: any;
+  modules: ModulePreview[];
+  createdAt: Date;
 }
