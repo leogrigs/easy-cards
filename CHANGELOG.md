@@ -1,3 +1,10 @@
+## [1.13.1](https://github.com/leogrigs/easy-cards/compare/v1.13.0...v1.13.1) (2024-12-04)
+
+
+### Bug Fixes
+
+* replace Card to ICard on module interface ([e1a5a6f](https://github.com/leogrigs/easy-cards/commit/e1a5a6f2c0f39c3e1868b6676c0b06b4c1541951))
+
 # [1.13.0](https://github.com/leogrigs/easy-cards/compare/v1.12.0...v1.13.0) (2024-12-02)
 
 
