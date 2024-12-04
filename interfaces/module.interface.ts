@@ -1,4 +1,4 @@
-import { Card } from "./card.interface";
+import { ICard } from "./card.interface";
 
 export interface Module {
   id: string;
@@ -6,7 +6,7 @@ export interface Module {
   public: boolean;
   description?: string;
   ownerId: string;
-  cards: Card[];
+  cards: ICard[];
 }
 
 export interface ModulePreview {
