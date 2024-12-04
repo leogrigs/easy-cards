@@ -1,3 +1,18 @@
+# [1.14.0](https://github.com/leogrigs/easy-cards/compare/v1.13.1...v1.14.0) (2024-12-04)
+
+
+### Bug Fixes
+
+* adjust logic of module creation adapting to the new interfaces ([bbadcb6](https://github.com/leogrigs/easy-cards/commit/bbadcb6918bdfee316dede6051ed86baa603e18f))
+* adjust updateUserModules call on explore page ([ba1c18c](https://github.com/leogrigs/easy-cards/commit/ba1c18c0fc70876ba5bf0467d30512d280853d33))
+* remove cards from module preview ([7a71c9f](https://github.com/leogrigs/easy-cards/commit/7a71c9f44ac9c2e69afedd9785fee7adbd04776d))
+* replacing Module to ModulePreview interface on dashboard page ([09e9dc8](https://github.com/leogrigs/easy-cards/commit/09e9dc8e35a9045a4887f999bf1bafc4aec76726))
+
+
+### Features
+
+* include all module preview information on updating user modules ([57fc201](https://github.com/leogrigs/easy-cards/commit/57fc201096f6c3c6c25d549c93785ae8f43da7ff))
+
 ## [1.13.1](https://github.com/leogrigs/easy-cards/compare/v1.13.0...v1.13.1) (2024-12-04)
 
 
