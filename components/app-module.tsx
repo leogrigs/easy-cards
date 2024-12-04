@@ -1,13 +1,13 @@
-import { Module } from "@/interfaces/module.interface";
+import { ModulePreview } from "@/interfaces/module.interface";
 import { Eye, Play, Plus, Trash } from "lucide-react";
 import Link from "next/link";
 import { Button } from "./ui/button";
 
 export interface IAppModuleProps {
-  module: Module;
+  module: ModulePreview;
   type?: "explore" | "dashboard";
   onDelete?: (moduleId: string) => void;
-  onAdd?: (module: Module) => void;
+  onAdd?: (module: ModulePreview) => void;
 }
 
 export function AppModule({
