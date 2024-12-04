@@ -1,4 +1,4 @@
-import { Module } from "@/interfaces/module.interface";
+import { Module, ModulePreview } from "@/interfaces/module.interface";
 import { User } from "firebase/auth";
 import {
   collection,
@@ -59,15 +59,10 @@ export async function createModule(module: Module) {
  * Updates the user's modules array with a new module.
  *
  * @param userId The user id to update the modules for.
- * @param moduleId The module id to add to the user's modules.
- * @param moduleName The module name to add to the user's modules.
+ * @param module The module to add to the user's modules array.
  * @returns A promise that resolves when the update is complete.
  */
-export async function updateUserModules(
-  userId: string,
-  moduleId: string,
-  moduleName: string
-) {
+export async function updateUserModules(userId: string, module: ModulePreview) {
   const userRef = doc(firestore, "users", userId);
   const userSnapshot = await getDoc(userRef);
 
@@ -75,20 +70,15 @@ export async function updateUserModules(
     const userData = userSnapshot.data();
     const modules = userData.modules || [];
 
-    const newModule = {
-      id: moduleId,
-      name: moduleName,
-    };
-
     const moduleExists = modules.some(
-      (module: Module) => module.id === moduleId
+      (_module: ModulePreview) => _module.id === module.id
     );
 
     if (moduleExists) {
       return;
     }
 
-    modules.push(newModule);
+    modules.push(module);
 
     await setDoc(userRef, { modules }, { merge: true });
   }
