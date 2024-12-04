@@ -4,7 +4,7 @@ import { AppModule } from "@/components/app-module";
 import { Button } from "@/components/ui/button";
 import { getPublicModules, updateUserModules } from "@/firebase/firestore";
 import { useToast } from "@/hooks/use-toast";
-import { Module } from "@/interfaces/module.interface";
+import { Module, ModulePreview } from "@/interfaces/module.interface";
 import { useAuth } from "@/providers/AuthContext";
 import { Plus } from "lucide-react";
 import Link from "next/link";
@@ -29,10 +29,10 @@ export default function ExplorePage() {
     fetchModules();
   }, []);
 
-  const addModuleToUser = async (module: Module) => {
+  const addModuleToUser = async (module: ModulePreview) => {
     if (!user) return;
     setLoading(true);
-    await updateUserModules(user.uid, module.id, module.name);
+    await updateUserModules(user.uid, module);
     toast({
       title: "Module added",
       description: `Module ${module.name} added to your modules`,
