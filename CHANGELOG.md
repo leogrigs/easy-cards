@@ -1,3 +1,10 @@
+## [1.14.1](https://github.com/leogrigs/easy-cards/compare/v1.14.0...v1.14.1) (2024-12-05)
+
+
+### Bug Fixes
+
+* responsiveness on dashboard module view ([0b906a2](https://github.com/leogrigs/easy-cards/commit/0b906a245f7e27a31cad244a3675c423c9110f44))
+
 # [1.14.0](https://github.com/leogrigs/easy-cards/compare/v1.13.1...v1.14.0) (2024-12-04)
 
 
