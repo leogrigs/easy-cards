@@ -1,10 +1,12 @@
 "use client";
 
+import AppInputSearch from "@/components/app-input-search";
 import { AppModule } from "@/components/app-module";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { deleteModuleFromUser, getUserData } from "@/firebase/firestore";
 import { useToast } from "@/hooks/use-toast";
+import { ModulePreview } from "@/interfaces/module.interface";
 import { UserData } from "@/interfaces/user-data.interface";
 import { useAuth } from "@/providers/AuthContext";
 import { Plus, Search } from "lucide-react";
@@ -15,7 +17,18 @@ export default function DashboardPage() {
   const { user } = useAuth();
   const [userData, setUserData] = useState<UserData | null>(null);
   const [loading, setLoading] = useState(true);
-  const modules = userData ? [...userData.modules] : [];
+  const [searchValue, setSearchValue] = useState("");
+  const modules = userData
+    ? [
+        ...userData.modules.filter(
+          (module: ModulePreview) =>
+            module.name.toLowerCase().includes(searchValue.toLowerCase()) ||
+            module.description
+              ?.toLowerCase()
+              .includes(searchValue.toLowerCase())
+        ),
+      ]
+    : [];
   const { toast } = useToast();
 
   useEffect(() => {
@@ -69,8 +82,14 @@ export default function DashboardPage() {
 
         <Separator className="mb-8" />
 
-        <div className="mb-8">
-          <Button asChild variant="outline">
+        <div className="flex gap-4 flex-col md:flex-row items-center justify-between mb-8">
+          <div className="w-full md:w-56">
+            <AppInputSearch
+              value={searchValue}
+              onChange={(e) => setSearchValue(e.target.value)}
+            />
+          </div>
+          <Button className="w-full md:w-auto" asChild variant="outline">
             <Link href="/modules/new-module">
               <Plus />
               Create Module
