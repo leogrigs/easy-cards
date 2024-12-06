@@ -1,3 +1,10 @@
+# [1.15.0](https://github.com/leogrigs/easy-cards/compare/v1.14.1...v1.15.0) (2024-12-06)
+
+
+### Features
+
+* search module feature on dashboard page ([8e761f2](https://github.com/leogrigs/easy-cards/commit/8e761f2957fe86c9725229bb41166f4a4ee1064b))
+
 ## [1.14.1](https://github.com/leogrigs/easy-cards/compare/v1.14.0...v1.14.1) (2024-12-05)
 
 
