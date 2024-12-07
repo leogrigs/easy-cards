@@ -1,3 +1,10 @@
+# [1.17.0](https://github.com/leogrigs/easy-cards/compare/v1.16.0...v1.17.0) (2024-12-07)
+
+
+### Features
+
+* implement search feature on explore page ([a531db9](https://github.com/leogrigs/easy-cards/commit/a531db92f2538df87aecc5654b13609ba0775c7d))
+
 # [1.16.0](https://github.com/leogrigs/easy-cards/compare/v1.15.0...v1.16.0) (2024-12-07)
 
 
