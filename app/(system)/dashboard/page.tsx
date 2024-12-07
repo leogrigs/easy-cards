@@ -103,6 +103,7 @@ export default function DashboardPage() {
               <AppModule
                 module={module}
                 onDelete={deleteModule}
+                isOwner={module.ownerId === user?.uid}
                 key={module.id}
               />
             ))}
