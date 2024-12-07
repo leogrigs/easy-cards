@@ -1,3 +1,16 @@
+# [1.16.0](https://github.com/leogrigs/easy-cards/compare/v1.15.0...v1.16.0) (2024-12-07)
+
+
+### Bug Fixes
+
+* switch svg attributes to camelcase ([4339732](https://github.com/leogrigs/easy-cards/commit/4339732b1330fc8824de78208ff034bf6cbc4d1e))
+
+
+### Features
+
+* include owner badge logic to module on dashboard page ([6b322b3](https://github.com/leogrigs/easy-cards/commit/6b322b3de619cb81ebb2686f82577509dbbe3ddc))
+* include owner badge logic to module on explore page ([35594c1](https://github.com/leogrigs/easy-cards/commit/35594c18761e4b0b26bd218a53714a0c1c035665))
+
 # [1.15.0](https://github.com/leogrigs/easy-cards/compare/v1.14.1...v1.15.0) (2024-12-06)
 
 
