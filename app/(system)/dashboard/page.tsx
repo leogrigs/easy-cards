@@ -76,7 +76,7 @@ export default function DashboardPage() {
             Your Modules
           </h2>
           <p className="mt-2 text-gray-600 dark:text-gray-400">
-            Manage your flashcards and explore new ones!
+            Manage your modules and start learning.
           </p>
         </header>
 
