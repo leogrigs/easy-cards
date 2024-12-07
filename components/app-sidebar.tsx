@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/sidebar";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/providers/AuthContext";
-import { LayoutDashboard, LogOut, Search, Settings, Zap } from "lucide-react";
+import { LayoutDashboard, LogOut, Search, Zap } from "lucide-react";
 
 const navigationItems = [
   {
@@ -26,11 +26,11 @@ const navigationItems = [
     url: "/explore",
     icon: Search,
   },
-  {
-    title: "Settings",
-    url: "/settings",
-    icon: Settings,
-  },
+  // {
+  //   title: "Settings",
+  //   url: "/settings",
+  //   icon: Settings,
+  // },
 ];
 
 export function AppSidebar() {
