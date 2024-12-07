@@ -53,6 +53,7 @@ export default function ExplorePage() {
               module={module}
               type="explore"
               onAdd={addModuleToUser}
+              isOwner={module.ownerId === user?.uid}
               key={module.id}
             />
           ))}
