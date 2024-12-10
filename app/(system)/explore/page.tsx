@@ -17,6 +17,7 @@ import { useEffect, useState } from "react";
 export default function ExplorePage() {
   const [modules, setModules] = useState<Module[] | null>(null);
   const [searchValue, setSearchValue] = useState("");
+  const [buttonLoading, setButtonLoading] = useState("");
   const { isLoading, setLoading } = useLoader();
   const { user } = useAuth();
   const { toast } = useToast();
@@ -42,13 +43,13 @@ export default function ExplorePage() {
 
   const addModuleToUser = async (module: ModulePreview) => {
     if (!user) return;
-    setLoading(true);
+    setButtonLoading(module.id);
     await updateUserModules(user.uid, module);
     toast({
       title: "Module added",
       description: `Module ${module.name} added to your modules`,
     });
-    setLoading(false);
+    setButtonLoading("");
   };
 
   return (
@@ -88,6 +89,7 @@ export default function ExplorePage() {
                 type="explore"
                 onAdd={addModuleToUser}
                 isOwner={module.ownerId === user?.uid}
+                isLoading={buttonLoading === module.id}
                 key={module.id}
               />
             ))}
