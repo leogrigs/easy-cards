@@ -1,5 +1,5 @@
 import { ModulePreview } from "@/interfaces/module.interface";
-import { Eye, Play, Plus, Trash } from "lucide-react";
+import { Eye, Loader, Play, Plus, Trash } from "lucide-react";
 import Link from "next/link";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
@@ -16,6 +16,7 @@ export interface IAppModuleProps {
   module: ModulePreview;
   type?: "explore" | "dashboard";
   isOwner?: boolean;
+  isLoading?: boolean;
   onDelete?: (moduleId: string) => void;
   onAdd?: (module: ModulePreview) => void;
 }
@@ -24,6 +25,7 @@ export function AppModule({
   module,
   type = "dashboard",
   isOwner = false,
+  isLoading = false,
   onDelete,
   onAdd,
 }: IAppModuleProps) {
@@ -76,7 +78,12 @@ export function AppModule({
                 size="sm"
                 className="flex items-center"
               >
-                <Trash className="h-4 w-4 mr-1" /> Delete
+                {isLoading ? (
+                  <Loader className="animate-spin" />
+                ) : (
+                  <Trash className="h-4 w-4 mr-1" />
+                )}{" "}
+                Delete
               </Button>
             </>
           ) : (
@@ -95,7 +102,12 @@ export function AppModule({
                 size="sm"
                 className="flex items-center"
               >
-                <Plus className="h-4 w-4 mr-1" /> Add
+                {!isLoading ? (
+                  <Plus className="h-4 w-4 mr-1" />
+                ) : (
+                  <Loader className="animate-spin" />
+                )}{" "}
+                Add
               </Button>
             </>
           )}
