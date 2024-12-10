@@ -68,7 +68,7 @@ export default {
       },
       animation: {
         "fade-in": "fadeIn 2s ease-out",
-        hflip: "flipHorizontal 2s infinite",
+        hflip: "flipHorizontal 1s infinite",
       },
       keyframes: {
         fadeIn: {
