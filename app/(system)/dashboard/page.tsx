@@ -20,6 +20,7 @@ export default function DashboardPage() {
   const { isLoading, setLoading } = useLoader();
   const [userData, setUserData] = useState<UserData | null>(null);
   const [searchValue, setSearchValue] = useState("");
+  const [buttonLoading, setButtonLoading] = useState("");
   const modules = userData
     ? [
         ...userData.modules.filter(
@@ -53,13 +54,14 @@ export default function DashboardPage() {
 
   const deleteModule = async (moduleId: string) => {
     if (!user) return;
-    setLoading(true);
+    setButtonLoading(moduleId);
     await deleteModuleFromUser(user.uid, moduleId);
     await fetchUserData();
     toast({
       title: "Module deleted",
       description: "Your module has been deleted successfully.",
     });
+    setButtonLoading("");
   };
 
   return (
@@ -99,6 +101,7 @@ export default function DashboardPage() {
                 module={module}
                 onDelete={deleteModule}
                 isOwner={module.ownerId === user?.uid}
+                isLoading={buttonLoading === module.id}
                 key={module.id}
               />
             ))}
