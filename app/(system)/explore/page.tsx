@@ -1,6 +1,7 @@
 "use client";
 
 import AppInputSearch from "@/components/app-input-search";
+import AppLoader from "@/components/app-loader";
 import { AppModule } from "@/components/app-module";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -8,23 +9,25 @@ import { getPublicModules, updateUserModules } from "@/firebase/firestore";
 import { useToast } from "@/hooks/use-toast";
 import { Module, ModulePreview } from "@/interfaces/module.interface";
 import { useAuth } from "@/providers/AuthContext";
+import { useLoader } from "@/providers/LoaderContext";
 import { Plus } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function ExplorePage() {
-  const [modules, setModules] = useState<Module[]>([]);
+  const [modules, setModules] = useState<Module[] | null>(null);
   const [searchValue, setSearchValue] = useState("");
-  const [loading, setLoading] = useState(true);
+  const { isLoading, setLoading } = useLoader();
   const { user } = useAuth();
   const { toast } = useToast();
-  const filteredModules = modules.filter(
+  const filteredModules = modules?.filter(
     (module: ModulePreview) =>
       module.name.toLowerCase().includes(searchValue.toLowerCase()) ||
       module.description?.toLowerCase().includes(searchValue.toLowerCase())
   );
 
   useEffect(() => {
+    setLoading(true);
     const fetchModules = async () => {
       try {
         const modules = await getPublicModules();
@@ -74,14 +77,12 @@ export default function ExplorePage() {
           </Link>
         </Button>
       </div>
-      {loading ? (
-        <div className="flex justify-center items-center h-screen">
-          <div className="w-8 h-8 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin"></div>
-        </div>
-      ) : filteredModules.length > 0 ? (
+      {isLoading || modules === null ? (
+        <AppLoader />
+      ) : filteredModules!.length > 0 ? (
         <div>
           <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-            {filteredModules.map((module) => (
+            {filteredModules!.map((module) => (
               <AppModule
                 module={module}
                 type="explore"
