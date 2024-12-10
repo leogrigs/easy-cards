@@ -1,3 +1,12 @@
+# [1.18.0](https://github.com/leogrigs/easy-cards/compare/v1.17.0...v1.18.0) (2024-12-10)
+
+
+### Features
+
+* created AppLoader component to make a standard loader component ([5106fd2](https://github.com/leogrigs/easy-cards/commit/5106fd21a680dc9de47287081323ae959931e3c0))
+* implemented loader inside add module button ([dc942f5](https://github.com/leogrigs/easy-cards/commit/dc942f55df91b4ac24830f94879bb1025e6bd8b3))
+* implemented loader inside delete module button ([41ade25](https://github.com/leogrigs/easy-cards/commit/41ade251580f1701287fd117e73c22524508972f))
+
 # [1.17.0](https://github.com/leogrigs/easy-cards/compare/v1.16.0...v1.17.0) (2024-12-07)
 
 
