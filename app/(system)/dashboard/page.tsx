@@ -1,6 +1,7 @@
 "use client";
 
 import AppInputSearch from "@/components/app-input-search";
+import AppLoader from "@/components/app-loader";
 import { AppModule } from "@/components/app-module";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -9,14 +10,15 @@ import { useToast } from "@/hooks/use-toast";
 import { ModulePreview } from "@/interfaces/module.interface";
 import { UserData } from "@/interfaces/user-data.interface";
 import { useAuth } from "@/providers/AuthContext";
+import { useLoader } from "@/providers/LoaderContext";
 import { Plus, Search } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function DashboardPage() {
   const { user } = useAuth();
+  const { isLoading, setLoading } = useLoader();
   const [userData, setUserData] = useState<UserData | null>(null);
-  const [loading, setLoading] = useState(true);
   const [searchValue, setSearchValue] = useState("");
   const modules = userData
     ? [
@@ -32,6 +34,7 @@ export default function DashboardPage() {
   const { toast } = useToast();
 
   useEffect(() => {
+    setLoading(true);
     fetchUserData();
   }, [user]);
 
@@ -40,7 +43,6 @@ export default function DashboardPage() {
 
     try {
       const data = (await getUserData(user)) as UserData;
-      console.log("User data:", data);
       setUserData(data);
     } catch (error) {
       console.error("Error fetching user data:", error);
@@ -59,14 +61,6 @@ export default function DashboardPage() {
       description: "Your module has been deleted successfully.",
     });
   };
-
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="w-10 h-10 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin"></div>
-      </div>
-    );
-  }
 
   return (
     <div className="flex flex-col">
@@ -96,8 +90,9 @@ export default function DashboardPage() {
             </Link>
           </Button>
         </div>
-
-        {modules.length > 0 ? (
+        {isLoading || userData === null ? (
+          <AppLoader />
+        ) : modules.length > 0 ? (
           <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
             {modules.map((module) => (
               <AppModule
