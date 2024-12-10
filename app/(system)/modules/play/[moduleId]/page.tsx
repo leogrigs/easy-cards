@@ -1,6 +1,7 @@
 "use client";
 
 import { AppCard } from "@/components/app-card";
+import AppLoader from "@/components/app-loader";
 import { Button } from "@/components/ui/button";
 import {
   Carousel,
@@ -10,6 +11,7 @@ import {
 } from "@/components/ui/carousel";
 import { firestore } from "@/firebase/clientApp";
 import { Module } from "@/interfaces/module.interface";
+import { useLoader } from "@/providers/LoaderContext";
 import { doc, getDoc } from "@firebase/firestore";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useParams } from "next/navigation";
@@ -19,14 +21,14 @@ export default function PlayModulePage() {
   const searchParams = useParams<{ moduleId: string }>();
   const moduleId = searchParams["moduleId"];
   const [module, setModule] = useState<Module | null>(null);
-  const [loading, setLoading] = useState(true);
+  const { isLoading, setLoading } = useLoader();
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);
 
   useEffect(() => {
     if (!moduleId) return;
-
+    setLoading(true);
     const fetchModule = async () => {
       try {
         const moduleRef = doc(firestore, "modules", moduleId);
@@ -60,12 +62,10 @@ export default function PlayModulePage() {
     });
   }, [api]);
 
-  if (loading) {
+  if (isLoading || module === null) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <p className="text-lg text-zinc-600 dark:text-zinc-400">
-          Loading module details...
-        </p>
+        <AppLoader />
       </div>
     );
   }
