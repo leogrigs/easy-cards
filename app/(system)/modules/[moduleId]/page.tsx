@@ -1,9 +1,11 @@
 "use client";
 
 import { AppCard } from "@/components/app-card";
+import AppLoader from "@/components/app-loader";
 import { Badge } from "@/components/ui/badge";
 import { firestore } from "@/firebase/clientApp";
 import { Module } from "@/interfaces/module.interface";
+import { useLoader } from "@/providers/LoaderContext";
 import { doc, getDoc } from "firebase/firestore";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -12,7 +14,7 @@ export default function ViewModulePage() {
   const searchParams = useParams<{ moduleId: string }>();
   const moduleId = searchParams["moduleId"];
   const [module, setModule] = useState<Module | null>(null);
-  const [loading, setLoading] = useState(true);
+  const { isLoading, setLoading } = useLoader();
 
   useEffect(() => {
     if (!moduleId) return;
@@ -40,10 +42,10 @@ export default function ViewModulePage() {
     fetchModule();
   }, [moduleId]);
 
-  if (loading) {
+  if (isLoading || module === null) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <p>Loading module details...</p>
+        <AppLoader />
       </div>
     );
   }
