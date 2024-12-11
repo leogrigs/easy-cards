@@ -1,3 +1,11 @@
+# [1.19.0](https://github.com/leogrigs/easy-cards/compare/v1.18.0...v1.19.0) (2024-12-11)
+
+
+### Features
+
+* included loader component and provider on module view page ([0d03709](https://github.com/leogrigs/easy-cards/commit/0d0370930f09ab918f417ba09644fd96f9d14f26))
+* using toast to handle errors on module view page ([ad6fe7d](https://github.com/leogrigs/easy-cards/commit/ad6fe7d631e249a829d2ba03d3e6c0f08eb4c3b7))
+
 # [1.18.0](https://github.com/leogrigs/easy-cards/compare/v1.17.0...v1.18.0) (2024-12-10)
 
 
