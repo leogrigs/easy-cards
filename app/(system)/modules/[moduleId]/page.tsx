@@ -4,10 +4,11 @@ import { AppCard } from "@/components/app-card";
 import AppLoader from "@/components/app-loader";
 import { Badge } from "@/components/ui/badge";
 import { firestore } from "@/firebase/clientApp";
+import { useToast } from "@/hooks/use-toast";
 import { Module } from "@/interfaces/module.interface";
 import { useLoader } from "@/providers/LoaderContext";
 import { doc, getDoc } from "firebase/firestore";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function ViewModulePage() {
@@ -15,6 +16,8 @@ export default function ViewModulePage() {
   const moduleId = searchParams["moduleId"];
   const [module, setModule] = useState<Module | null>(null);
   const { isLoading, setLoading } = useLoader();
+  const { toast } = useToast();
+  const router = useRouter();
 
   useEffect(() => {
     if (!moduleId) return;
@@ -26,14 +29,22 @@ export default function ViewModulePage() {
 
         if (moduleSnapshot.exists()) {
           setModule(moduleSnapshot.data() as Module);
-          console.log("Module Data:", moduleSnapshot.data());
         } else {
-          console.error("Module not found.");
-          setModule(null);
+          toast({
+            title: "Error",
+            description: "Module not found.",
+            variant: "destructive",
+          });
+          router.push("/dashboard");
         }
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
       } catch (error) {
-        console.error("Error fetching module:", error);
-        setModule(null);
+        toast({
+          title: "Error",
+          description: "An error occurred while fetching the module.",
+          variant: "destructive",
+        });
+        router.push("/dashboard");
       } finally {
         setLoading(false);
       }
