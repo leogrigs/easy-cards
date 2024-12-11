@@ -1,18 +1,23 @@
 "use client";
 
+import { AppCard } from "@/components/app-card";
+import AppLoader from "@/components/app-loader";
 import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
 import { firestore } from "@/firebase/clientApp";
+import { useToast } from "@/hooks/use-toast";
 import { Module } from "@/interfaces/module.interface";
+import { useLoader } from "@/providers/LoaderContext";
 import { doc, getDoc } from "firebase/firestore";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function ViewModulePage() {
   const searchParams = useParams<{ moduleId: string }>();
   const moduleId = searchParams["moduleId"];
   const [module, setModule] = useState<Module | null>(null);
-  const [loading, setLoading] = useState(true);
+  const { isLoading, setLoading } = useLoader();
+  const { toast } = useToast();
+  const router = useRouter();
 
   useEffect(() => {
     if (!moduleId) return;
@@ -24,14 +29,22 @@ export default function ViewModulePage() {
 
         if (moduleSnapshot.exists()) {
           setModule(moduleSnapshot.data() as Module);
-          console.log("Module Data:", moduleSnapshot.data());
         } else {
-          console.error("Module not found.");
-          setModule(null);
+          toast({
+            title: "Error",
+            description: "Module not found.",
+            variant: "destructive",
+          });
+          router.push("/dashboard");
         }
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
       } catch (error) {
-        console.error("Error fetching module:", error);
-        setModule(null);
+        toast({
+          title: "Error",
+          description: "An error occurred while fetching the module.",
+          variant: "destructive",
+        });
+        router.push("/dashboard");
       } finally {
         setLoading(false);
       }
@@ -40,10 +53,10 @@ export default function ViewModulePage() {
     fetchModule();
   }, [moduleId]);
 
-  if (loading) {
+  if (isLoading || module === null) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <p>Loading module details...</p>
+        <AppLoader />
       </div>
     );
   }
@@ -61,7 +74,9 @@ export default function ViewModulePage() {
       <header className="mb-6">
         <div className="flex justify-between items-center ">
           <h2 className="text-3xl font-bold dark:text-white">{module.name}</h2>
-          <Badge>{module.public ? "Public" : "Private"}</Badge>
+          <Badge variant={module.public ? "default" : "secondary"}>
+            {module.public ? "Public" : "Private"}
+          </Badge>
         </div>
         <p className="mt-2 text-gray-600 dark:text-gray-400">
           {module.description || "No description available."}
@@ -70,14 +85,7 @@ export default function ViewModulePage() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {module.cards.map((card, index) => (
-          <div
-            key={index}
-            className="flex flex-col justify-between p-4 h-36 border border-slate-800 rounded-sm"
-          >
-            <p className="text-gray-700 dark:text-gray-300">{card.front}</p>
-            <Separator />
-            <p className="text-gray-700 dark:text-gray-300">{card.back}</p>
-          </div>
+          <AppCard card={card} key={index} />
         ))}
       </div>
     </div>
