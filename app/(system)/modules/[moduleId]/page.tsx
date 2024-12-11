@@ -1,7 +1,7 @@
 "use client";
 
+import { AppCard } from "@/components/app-card";
 import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
 import { firestore } from "@/firebase/clientApp";
 import { Module } from "@/interfaces/module.interface";
 import { doc, getDoc } from "firebase/firestore";
@@ -70,14 +70,7 @@ export default function ViewModulePage() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {module.cards.map((card, index) => (
-          <div
-            key={index}
-            className="flex flex-col justify-between p-4 h-36 border border-slate-800 rounded-sm"
-          >
-            <p className="text-gray-700 dark:text-gray-300">{card.front}</p>
-            <Separator />
-            <p className="text-gray-700 dark:text-gray-300">{card.back}</p>
-          </div>
+          <AppCard card={card} key={index} />
         ))}
       </div>
     </div>
