@@ -74,7 +74,9 @@ export default function ViewModulePage() {
       <header className="mb-6">
         <div className="flex justify-between items-center ">
           <h2 className="text-3xl font-bold dark:text-white">{module.name}</h2>
-          <Badge>{module.public ? "Public" : "Private"}</Badge>
+          <Badge variant={module.public ? "default" : "secondary"}>
+            {module.public ? "Public" : "Private"}
+          </Badge>
         </div>
         <p className="mt-2 text-gray-600 dark:text-gray-400">
           {module.description || "No description available."}
