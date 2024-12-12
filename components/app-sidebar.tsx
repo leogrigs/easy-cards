@@ -13,7 +13,9 @@ import {
 } from "@/components/ui/sidebar";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/providers/AuthContext";
-import { LayoutDashboard, LogOut, Search, Zap } from "lucide-react";
+import { LayoutDashboard, LogOut, Search } from "lucide-react";
+import Image from "next/image";
+import Logo from "../public/logo.png";
 
 const navigationItems = [
   {
@@ -43,7 +45,7 @@ export function AppSidebar() {
         {/* Branding */}
         <SidebarGroup>
           <SidebarGroupLabel className="flex items-center space-x-2 text-lg font-semibold text-indigo-600 dark:text-indigo-400 px-4 mt-4 mb-4">
-            <Zap className="h-5 w-5" />
+            <Image src={Logo} width={16} height={16} alt="Logo" />
             <span>Easy Cards</span>
           </SidebarGroupLabel>
         </SidebarGroup>
