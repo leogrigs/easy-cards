@@ -1,8 +1,8 @@
 "use client";
 
-import AppInputSearch from "@/components/app-input-search";
-import AppLoader from "@/components/app-loader";
-import { AppModule } from "@/components/app-module";
+import AppInputSearch from "@/components/AppInputSearch";
+import AppLoader from "@/components/AppLoader";
+import { AppModule } from "@/components/AppModule";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { deleteModuleFromUser, getUserData } from "@/firebase/firestore";
