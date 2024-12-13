@@ -1,7 +1,7 @@
 "use client";
 
-import { AppCard } from "@/components/app-card";
-import AppLoader from "@/components/app-loader";
+import { AppCard } from "@/components/AppCard";
+import AppLoader from "@/components/AppLoader";
 import { Button } from "@/components/ui/button";
 import {
   Carousel,
