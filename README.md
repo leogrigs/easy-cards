@@ -1,36 +1,37 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Easy Cards
 
-## Getting Started
+![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
 
-Firstly, run the development server:
+**Easy Cards** is a modern, user-friendly application designed to help you study smarter, not harder. With customizable flashcards and interactive features, it provides a seamless way to organize, review, and master your learning material—all for free.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Description
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Easy Cards allows users to create and manage flashcards easily. Its intuitive interface and powerful functionality are perfect for students, professionals, or anyone looking to enhance their learning experience. Whether you're preparing for exams, learning a new skill, or just staying organized, Easy Cards is here to simplify the process.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Motivation
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+We believe that learning should be **accessible**, **engaging**, and **free for everyone**. Easy Cards was built with the vision of empowering users to study efficiently and effectively using innovative tools and intuitive designs. No more hassle, just **easy learning**.
 
-## Learn More
+## Technologies
 
-To learn more about Next.js, take a look at the following resources:
+![React](https://img.shields.io/badge/-React-61DAFB?logo=react&logoColor=white&style=flat-square)  
+![TypeScript](https://img.shields.io/badge/-TypeScript-3178C6?logo=typescript&logoColor=white&style=flat-square)  
+![Next.js](https://img.shields.io/badge/-Next.js-000000?logo=next.js&logoColor=white&style=flat-square)  
+![Firebase](https://img.shields.io/badge/-Firebase-FFCA28?logo=firebase&logoColor=white&style=flat-square)  
+![Tailwind CSS](https://img.shields.io/badge/-Tailwind%20CSS-06B6D4?logo=tailwindcss&logoColor=white&style=flat-square)  
+![shadcn/ui](https://img.shields.io/badge/-shadcn%2Fui-4B5563?logoColor=white&style=flat-square)  
+![Jest](https://img.shields.io/badge/-Jest-C21325?logo=jest&logoColor=white&style=flat-square)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Preview
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+![image](https://github.com/user-attachments/assets/b9c12b0a-84ce-47be-ad31-b642571352c1)
 
-## Deploy on Vercel
+## Author
 
-The easiest way to deploy your Next.js app is using the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Developed by **Leonardo Grigorio Ferreira**.  
+Feel free to connect with me!
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+[![LinkedIn](https://img.shields.io/badge/-LinkedIn-0A66C2?logo=linkedin&logoColor=white&style=flat-square)](https://www.linkedin.com/in/leonardogrferreira/)  
+[![Gmail](https://img.shields.io/badge/-Gmail-D14836?logo=gmail&logoColor=white&style=flat-square)](mailto:leonardogrferreira@gmail.com)
+
+Thank you for checking out **Easy Cards**! Your feedback and contributions are always welcome. Let’s make learning **easier** and **more enjoyable** for everyone. 🚀
