@@ -1,6 +1,6 @@
 # Easy Cards
 
-![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
+![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/leogrigs/easy-cards)
 ![Coverage Badge](./badge.svg)
 
