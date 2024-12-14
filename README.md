@@ -31,7 +31,7 @@ We believe that learning should be **accessible**, **engaging**, and **free for 
 Developed by **Leonardo Grigorio Ferreira**.  
 Feel free to connect with me!
 
-[![LinkedIn](https://img.shields.io/badge/-LinkedIn-0A66C2?logo=linkedin&logoColor=white&style=flat-square)](https://www.linkedin.com/in/leonardogrferreira/)  
-[![Gmail](https://img.shields.io/badge/-Gmail-D14836?logo=gmail&logoColor=white&style=flat-square)](mailto:leonardogrferreira@gmail.com)
+[![LinkedIn](https://img.shields.io/badge/-LinkedIn-0A66C2?logo=linkedin&logoColor=white&style=flat-square)](https://www.linkedin.com/in/leonardo-grigorio-ferreira/)  
+[![Gmail](https://img.shields.io/badge/-Gmail-D14836?logo=gmail&logoColor=white&style=flat-square)](mailto:leo.grigorio16@gmail.com)
 
 Thank you for checking out **Easy Cards**! Your feedback and contributions are always welcome. Let’s make learning **easier** and **more enjoyable** for everyone. 🚀
