@@ -1,6 +1,7 @@
 # Easy Cards
 
 ![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/leogrigs/easy-cards)
 ![Coverage Badge](./badge.svg)
 
 **Easy Cards** is a modern, user-friendly application designed to help you study smarter, not harder. With customizable flashcards and interactive features, it provides a seamless way to organize, review, and master your learning material—all for free.
