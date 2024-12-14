@@ -1,3 +1,10 @@
+## [1.19.1](https://github.com/leogrigs/easy-cards/compare/v1.19.0...v1.19.1) (2024-12-14)
+
+
+### Bug Fixes
+
+* test command on release.yml ([05d2391](https://github.com/leogrigs/easy-cards/commit/05d2391d7f9e69ac755ef26af7dcbfcde3d955bb))
+
 # [1.19.0](https://github.com/leogrigs/easy-cards/compare/v1.18.0...v1.19.0) (2024-12-11)
 
 
