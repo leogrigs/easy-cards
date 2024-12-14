@@ -26,7 +26,22 @@ jobs:
       - name: Run tests
         env:
           CI: true
-        run: npm test
+        run: npm test:coverage
+
+      - name: Commit coverage badge
+        run: |
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git add ./badge.svg
+          git commit -m "chore: update coverage badge"
+        if: success()
+
+      - name: Push changes
+        uses: ad-m/github-push-action@v0.6.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: main
+          force: true
 
       - name: Run semantic-release
         env:
