@@ -22,6 +22,10 @@ We believe that learning should be **accessible**, **engaging**, and **free for 
 ![shadcn/ui](https://img.shields.io/badge/-shadcn%2Fui-4B5563?logoColor=white&style=flat-square)  
 ![Jest](https://img.shields.io/badge/-Jest-C21325?logo=jest&logoColor=white&style=flat-square)
 
+## Preview
+
+![image](https://github.com/user-attachments/assets/b9c12b0a-84ce-47be-ad31-b642571352c1)
+
 ## Author
 
 Developed by **Leonardo Grigorio Ferreira**.  
