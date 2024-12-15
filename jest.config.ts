@@ -12,7 +12,7 @@ const config: Config = {
   collectCoverageFrom: [
     "components/**/*.{ts,tsx}",
     "providers/**/*.{ts,tsx}",
-    "firebase/**/*.{ts,tsx}",
+    "app/**/*.{ts,tsx}",
   ],
   testEnvironment: "jsdom",
   moduleDirectories: ["node_modules", "<rootDir>/"],
