@@ -10,7 +10,7 @@ const config: Config = {
   coverageReporters: ["text", "json", "html", "json-summary"],
   coverageDirectory: "coverage",
   collectCoverageFrom: [
-    "components/**/*.{ts,tsx}",
+    "components/*.{ts,tsx}",
     "providers/**/*.{ts,tsx}",
     "app/**/*.{ts,tsx}",
   ],
@@ -19,6 +19,7 @@ const config: Config = {
   moduleNameMapper: {
     "^@/(.*)$": "<rootDir>/$1",
   },
+  setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"],
 };
 
 export default createJestConfig(config);

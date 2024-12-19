@@ -1,6 +1,5 @@
 import { AppModule } from "@/components/AppModule";
 import { ModulePreview } from "@/interfaces/module.interface";
-import "@testing-library/jest-dom";
 import { fireEvent, render } from "@testing-library/react";
 
 describe("AppModule component", () => {

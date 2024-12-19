@@ -1,5 +1,5 @@
-import DashboardPage from "@/app/(system)/dashboard/page";
-import { deleteModuleFromUser, getUserData } from "@/firebase/firestore";
+import ExplorePage from "@/app/(system)/explore/page";
+import { getPublicModules, updateUserModules } from "@/firebase/firestore";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/providers/AuthContext";
 import { useLoader } from "@/providers/LoaderContext";
@@ -7,8 +7,8 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 
 jest.mock("@/firebase/clientApp");
 jest.mock("@/firebase/firestore", () => ({
-  deleteModuleFromUser: jest.fn(),
-  getUserData: jest.fn(),
+  getPublicModules: jest.fn(),
+  updateUserModules: jest.fn(),
 }));
 jest.mock("@/providers/AuthContext", () => ({
   useAuth: jest.fn(),
@@ -41,29 +41,40 @@ jest.mock("@/components/AppLoader", () => ({
 }));
 jest.mock("@/components/AppModule", () => ({
   __esModule: true,
-  AppModule: jest.fn(({ module, onDelete, isOwner, isLoading }) => (
+  AppModule: jest.fn(({ module, onAdd, isLoading }) => (
     <div data-testid="module-item">
       <p>{module.name}</p>
       <button
-        data-testid={`delete-button-${module.id}`}
-        onClick={() => onDelete(module.id)}
+        data-testid={`add-button-${module.id}`}
+        onClick={() => onAdd(module)}
         disabled={isLoading}
       >
-        Delete
+        Add
       </button>
     </div>
   )),
 }));
 
 const mockModules = [
-  { id: "1", name: "Module 1", description: "Description 1", ownerId: "user1" },
-  { id: "2", name: "Module 2", description: "Description 2", ownerId: "user1" },
+  {
+    id: "1",
+    name: "Public Module 1",
+    description: "Description 1",
+    ownerId: "user1",
+  },
+  {
+    id: "2",
+    name: "Public Module 2",
+    description: "Description 2",
+    ownerId: "user2",
+  },
 ];
 const mockUser = { uid: "user1" };
+
 const setupMocks = ({
   user = mockUser,
   isLoading = false,
-  userData = { modules: mockModules },
+  modules = mockModules,
   toast = jest.fn(),
 } = {}) => {
   (useAuth as jest.Mock).mockReturnValue({ user });
@@ -71,96 +82,105 @@ const setupMocks = ({
     isLoading,
     setLoading: jest.fn(),
   });
-  (getUserData as jest.Mock).mockResolvedValue(userData);
-  (deleteModuleFromUser as jest.Mock).mockResolvedValue({});
+  (getPublicModules as jest.Mock).mockResolvedValue(modules);
+  (updateUserModules as jest.Mock).mockResolvedValue({});
   (useToast as jest.Mock).mockReturnValue({ toast });
 };
 
-describe("DashboardPage", () => {
+describe("ExplorePage", () => {
   afterEach(() => {
     jest.clearAllMocks();
   });
 
   it("renders loading state", async () => {
     setupMocks({ isLoading: true });
-    render(<DashboardPage />);
+    render(<ExplorePage />);
     expect(screen.getByTestId("loader")).toBeInTheDocument();
   });
 
   it("renders empty state when no modules", async () => {
-    setupMocks({ userData: { modules: [] } });
-    render(<DashboardPage />);
+    setupMocks({ modules: [] });
+    render(<ExplorePage />);
     await waitFor(() =>
       expect(
-        screen.getByText("You do not have any modules yet.")
+        screen.getByText("No modules found. Create a new one to get started.")
       ).toBeInTheDocument()
     );
   });
 
   it("renders modules when data is loaded", async () => {
     setupMocks();
-    render(<DashboardPage />);
+    render(<ExplorePage />);
     await waitFor(() => {
       expect(screen.getAllByTestId("module-item")).toHaveLength(
         mockModules.length
       );
-      expect(screen.getByText("Module 1")).toBeInTheDocument();
-      expect(screen.getByText("Module 2")).toBeInTheDocument();
+      expect(screen.getByText("Public Module 1")).toBeInTheDocument();
+      expect(screen.getByText("Public Module 2")).toBeInTheDocument();
     });
   });
 
   it("filters modules by search input", async () => {
     setupMocks();
-    render(<DashboardPage />);
+    render(<ExplorePage />);
     const searchInput = screen.getByTestId("search-input");
-    fireEvent.change(searchInput, { target: { value: "Module 1" } });
+    fireEvent.change(searchInput, { target: { value: "Public Module 1" } });
     await waitFor(() => {
       expect(screen.getAllByTestId("module-item")).toHaveLength(1);
-      expect(screen.getByText("Module 1")).toBeInTheDocument();
+      expect(screen.getByText("Public Module 1")).toBeInTheDocument();
     });
   });
 
-  it("calls deleteModule when delete button is clicked", async () => {
+  it("calls addModuleToUser when add button is clicked", async () => {
     setupMocks();
-    render(<DashboardPage />);
+    render(<ExplorePage />);
     await waitFor(() => {
-      fireEvent.click(screen.getByTestId("delete-button-1"));
+      expect(getPublicModules).toHaveBeenCalled();
     });
+    const addButton = screen.getByTestId("add-button-1");
+    fireEvent.click(addButton);
     await waitFor(() => {
-      expect(deleteModuleFromUser).toHaveBeenCalledWith(mockUser.uid, "1");
+      expect(updateUserModules).toHaveBeenCalledWith(
+        mockUser.uid,
+        mockModules[0]
+      );
     });
   });
 
-  it("disables delete button while deleting a module", async () => {
+  it("disables add button while adding a module", async () => {
     setupMocks();
-    render(<DashboardPage />);
+    render(<ExplorePage />);
     await waitFor(() => {
-      const deleteButton = screen.getByTestId("delete-button-1");
-      fireEvent.click(deleteButton);
-      expect(deleteButton).toBeDisabled();
+      expect(getPublicModules).toHaveBeenCalled();
+    });
+    const addButton = screen.getByTestId("add-button-1");
+    fireEvent.click(addButton);
+    await waitFor(() => {
+      expect(addButton).toBeDisabled();
     });
   });
 
-  it("shows a toast when a module is deleted", async () => {
+  it("shows a toast when a module is added", async () => {
     const mockToast = jest.fn();
     setupMocks({ toast: mockToast });
-    render(<DashboardPage />);
+    render(<ExplorePage />);
     await waitFor(() => {
-      fireEvent.click(screen.getByTestId("delete-button-1"));
+      expect(getPublicModules).toHaveBeenCalled();
     });
+    fireEvent.click(screen.getByTestId("add-button-1"));
     await waitFor(() => {
       expect(mockToast).toHaveBeenCalledWith({
-        title: "Module deleted",
-        description: "Your module has been deleted successfully.",
+        title: "Module added",
+        description: "Module Public Module 1 added to your modules",
       });
     });
   });
 
-  it("does not call fetchUserData when user is not authenticated", async () => {
+  it("does not fetch public modules when user is not authenticated", async () => {
     setupMocks({ user: null as any });
-    render(<DashboardPage />);
+    render(<ExplorePage />);
     await waitFor(() => {
-      expect(getUserData).not.toHaveBeenCalled();
+      expect(getPublicModules).toHaveBeenCalled();
     });
   });
 });

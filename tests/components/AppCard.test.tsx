@@ -1,6 +1,5 @@
 import { AppCard } from "@/components/AppCard";
 import { ICard } from "@/interfaces/card.interface";
-import "@testing-library/jest-dom";
 import { fireEvent, render, waitFor } from "@testing-library/react";
 
 describe("AppCard component", () => {

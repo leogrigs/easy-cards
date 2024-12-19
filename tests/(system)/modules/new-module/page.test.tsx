@@ -2,7 +2,6 @@ import CreateModulePage from "@/app/(system)/modules/new-module/page";
 import { createModule, updateUserModules } from "@/firebase/firestore";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/providers/AuthContext";
-import "@testing-library/jest-dom";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { useRouter } from "next/navigation";

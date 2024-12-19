@@ -1,5 +1,4 @@
 import AppInputSearch from "@/components/AppInputSearch";
-import "@testing-library/jest-dom";
 import { fireEvent, render } from "@testing-library/react";
 
 describe("AppInputSearch component", () => {

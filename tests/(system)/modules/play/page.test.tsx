@@ -1,7 +1,6 @@
 import PlayModulePage from "@/app/(system)/modules/play/[moduleId]/page";
 import { useLoader } from "@/providers/LoaderContext";
 import { getDoc } from "@firebase/firestore";
-import "@testing-library/jest-dom";
 import { render, screen, waitFor } from "@testing-library/react";
 
 jest.mock("@/providers/LoaderContext", () => ({
