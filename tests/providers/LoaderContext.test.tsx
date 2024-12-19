@@ -1,5 +1,4 @@
 import { LoaderProvider, useLoader } from "@/providers/LoaderContext";
-import "@testing-library/jest-dom";
 import { act, render, screen } from "@testing-library/react";
 
 const MockChild = () => {

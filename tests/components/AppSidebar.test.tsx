@@ -1,7 +1,6 @@
 import { AppSidebar } from "@/components/AppSidebar";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { useAuth } from "@/providers/AuthContext";
-import "@testing-library/jest-dom";
 import { fireEvent, render, screen } from "@testing-library/react";
 
 jest.mock("@/providers/AuthContext", () => ({

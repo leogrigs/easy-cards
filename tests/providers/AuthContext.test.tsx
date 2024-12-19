@@ -1,5 +1,4 @@
 import { AuthProvider, useAuth } from "@/providers/AuthContext";
-import "@testing-library/jest-dom";
 import { render, screen, waitFor } from "@testing-library/react";
 
 jest.mock("firebase/app", () => ({

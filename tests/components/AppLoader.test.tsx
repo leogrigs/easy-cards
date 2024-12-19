@@ -1,5 +1,4 @@
 import AppLoader from "@/components/AppLoader";
-import "@testing-library/jest-dom";
 import { render } from "@testing-library/react";
 
 describe("AppLoader component", () => {

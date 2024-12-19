@@ -3,7 +3,6 @@ import { deleteModuleFromUser, getUserData } from "@/firebase/firestore";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/providers/AuthContext";
 import { useLoader } from "@/providers/LoaderContext";
-import "@testing-library/jest-dom";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 
 jest.mock("@/firebase/clientApp");
