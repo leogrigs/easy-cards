@@ -1,0 +1,11 @@
+node_modules
+.next
+coverage
+out
+build
+dist
+package-lock.json
+badge.svg
+CHANGELOG.md
+public
+*.svg
