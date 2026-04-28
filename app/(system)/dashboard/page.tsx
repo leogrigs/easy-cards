@@ -78,7 +78,7 @@ export default function DashboardPage() {
 
         <Separator className="mb-8" />
 
-        <div className="flex gap-4 flex-col md:flex-row items-center justify-between mb-8">
+        <div className="mb-8 flex flex-col items-center justify-between gap-4 md:flex-row">
           <div className="w-full md:w-56">
             <AppInputSearch
               value={searchValue}
@@ -108,7 +108,7 @@ export default function DashboardPage() {
           </div>
         ) : (
           <div className="flex flex-col items-center">
-            <p className="mb-4 text-gray-600 dark:text-gray-400 text-center">
+            <p className="mb-4 text-center text-gray-600 dark:text-gray-400">
               You do not have any modules yet.
             </p>
             <div className="flex gap-4">

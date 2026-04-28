@@ -141,8 +141,8 @@ export default function CreateModulePage() {
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto p-6">
-      <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">
+    <div className="mx-auto w-full max-w-4xl p-6">
+      <h2 className="mb-6 text-2xl font-bold text-gray-900 dark:text-gray-100">
         Create a New Module
       </h2>
 
@@ -225,9 +225,9 @@ export default function CreateModulePage() {
         {/* Cards Tab */}
         <TabsContent value="cards">
           {/* Manual Card Creation */}
-          <div className="space-y-4 mb-6">
+          <div className="mb-6 space-y-4">
             <h4 className="text-lg font-semibold">Manual Creation</h4>
-            <div className="flex gap-4 items-center">
+            <div className="flex items-center gap-4">
               <Input id="manualFront" placeholder="Front" />
               <Input id="manualBack" placeholder="Back" />
               <Button
@@ -246,7 +246,7 @@ export default function CreateModulePage() {
           </div>
 
           {/* Bulk Card Creation */}
-          <div className="space-y-4 mb-6">
+          <div className="mb-6 space-y-4">
             <h4 className="text-lg font-semibold">Bulk Creation</h4>
             <Textarea
               placeholder={`Enter cards in JSON format, e.g.:\n[\n  {"front": "Q1", "back": "A1"},\n  {"front": "Q2", "back": "A2"}\n]`}
@@ -260,13 +260,13 @@ export default function CreateModulePage() {
 
           {/* Shared Card Visualization */}
           <div>
-            <h4 className="text-lg font-semibold mb-4">Current Cards</h4>
+            <h4 className="mb-4 text-lg font-semibold">Current Cards</h4>
             {cards.length > 0 ? (
               <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
                 {cards.map((card, index) => (
                   <div
                     key={index}
-                    className="p-4 border rounded-lg flex flex-col gap-2 items-center text-center"
+                    className="flex flex-col items-center gap-2 rounded-lg border p-4 text-center"
                   >
                     <div className="flex w-full justify-end">
                       <Button
@@ -290,7 +290,7 @@ export default function CreateModulePage() {
       </Tabs>
 
       {/* Action Buttons */}
-      <div className="flex justify-between mt-8">
+      <div className="mt-8 flex justify-between">
         <Button variant="secondary" onClick={() => setCards([])}>
           Clear Cards
         </Button>
