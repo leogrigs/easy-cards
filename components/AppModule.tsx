@@ -30,9 +30,9 @@ export function AppModule({
   onAdd,
 }: IAppModuleProps) {
   return (
-    <Card className="flex flex-col h-full">
+    <Card className="flex h-full flex-col">
       {/* Header */}
-      <CardHeader className="flex flex-row justify-between items-start pb-4">
+      <CardHeader className="flex flex-row items-start justify-between pb-4">
         <Badge variant="outline">{isOwner ? "Owner" : "Non-Owner"}</Badge>
         {type === "dashboard" && (
           <Badge variant={module.public ? "default" : "secondary"}>
@@ -43,10 +43,10 @@ export function AppModule({
 
       {/* Content */}
       <CardContent className="flex flex-1 flex-col">
-        <CardTitle className="text-lg font-semibold mb-2">
+        <CardTitle className="mb-2 text-lg font-semibold">
           {module.name}
         </CardTitle>
-        <CardDescription className="text-sm text-muted-foreground flex-grow">
+        <CardDescription className="flex-grow text-sm text-muted-foreground">
           {module.description}
         </CardDescription>
       </CardContent>
@@ -61,7 +61,7 @@ export function AppModule({
                   href={`/modules/${module.id}`}
                   className="flex items-center"
                 >
-                  <Eye className="h-4 w-4 mr-1" /> View
+                  <Eye className="mr-1 h-4 w-4" /> View
                 </Link>
               </Button>
               <Button asChild variant="ghost" size="sm">
@@ -69,7 +69,7 @@ export function AppModule({
                   href={`/modules/play/${module.id}`}
                   className="flex items-center"
                 >
-                  <Play className="h-4 w-4 mr-1" /> Play
+                  <Play className="mr-1 h-4 w-4" /> Play
                 </Link>
               </Button>
               <Button
@@ -81,7 +81,7 @@ export function AppModule({
                 {isLoading ? (
                   <Loader className="animate-spin" />
                 ) : (
-                  <Trash className="h-4 w-4 mr-1" />
+                  <Trash className="mr-1 h-4 w-4" />
                 )}{" "}
                 Delete
               </Button>
@@ -93,7 +93,7 @@ export function AppModule({
                   href={`/modules/${module.id}`}
                   className="flex items-center"
                 >
-                  <Eye className="h-4 w-4 mr-1" /> View
+                  <Eye className="mr-1 h-4 w-4" /> View
                 </Link>
               </Button>
               <Button
@@ -103,7 +103,7 @@ export function AppModule({
                 className="flex items-center"
               >
                 {!isLoading ? (
-                  <Plus className="h-4 w-4 mr-1" />
+                  <Plus className="mr-1 h-4 w-4" />
                 ) : (
                   <Loader className="animate-spin" />
                 )}{" "}

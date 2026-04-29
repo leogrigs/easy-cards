@@ -15,7 +15,7 @@ export function AppCard({ card }: IAppCardProps) {
       onClick={() => setIsFlipped(!isFlipped)}
     >
       <Card
-        className={`group relative w-full h-64 mx-auto rounded-lg ${
+        className={`group relative mx-auto h-64 w-full rounded-lg ${
           isFlipped
             ? "border-indigo-800 dark:border-indigo-400"
             : "border-emerald-800 dark:border-emerald-400"
@@ -25,7 +25,7 @@ export function AppCard({ card }: IAppCardProps) {
         }}
       >
         <CardContent
-          className={`relative w-full h-full flex items-center justify-center rounded-lg transform transition-transform duration-700`}
+          className={`relative flex h-full w-full transform items-center justify-center rounded-lg transition-transform duration-700`}
           style={{
             transformStyle: "preserve-3d",
             transform: isFlipped ? "rotateY(180deg)" : "rotateY(0deg)",
@@ -33,25 +33,25 @@ export function AppCard({ card }: IAppCardProps) {
         >
           {/* Front of the Card */}
           <div
-            className="absolute inset-0 flex items-center justify-center px-4 text-center rounded-lg"
+            className="absolute inset-0 flex items-center justify-center rounded-lg px-4 text-center"
             style={{
               backfaceVisibility: "hidden",
             }}
           >
-            <p className="text-xl font-semibold text-zinc-900 dark:text-zinc-50 break-words">
+            <p className="break-words text-xl font-semibold text-zinc-900 dark:text-zinc-50">
               {card.front}
             </p>
           </div>
 
           {/* Back of the Card */}
           <div
-            className="absolute inset-0 flex items-center justify-center px-4 text-center rounded-lg"
+            className="absolute inset-0 flex items-center justify-center rounded-lg px-4 text-center"
             style={{
               backfaceVisibility: "hidden",
               transform: "rotateY(180deg)",
             }}
           >
-            <p className="text-xl font-semibold text-zinc-900 dark:text-zinc-50 break-words">
+            <p className="break-words text-xl font-semibold text-zinc-900 dark:text-zinc-50">
               {card.back}
             </p>
           </div>

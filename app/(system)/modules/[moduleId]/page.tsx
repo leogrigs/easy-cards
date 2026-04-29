@@ -55,7 +55,7 @@ export default function ViewModulePage() {
 
   if (isLoading || module === null) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
+      <div className="flex min-h-screen items-center justify-center">
         <AppLoader />
       </div>
     );
@@ -63,16 +63,16 @@ export default function ViewModulePage() {
 
   if (!module) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
+      <div className="flex min-h-screen items-center justify-center">
         <p>Module not found.</p>
       </div>
     );
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
+    <div className="mx-auto max-w-4xl p-6">
       <header className="mb-6">
-        <div className="flex justify-between items-center ">
+        <div className="flex items-center justify-between">
           <h2 className="text-3xl font-bold dark:text-white">{module.name}</h2>
           <Badge variant={module.public ? "default" : "secondary"}>
             {module.public ? "Public" : "Private"}
@@ -83,7 +83,7 @@ export default function ViewModulePage() {
         </p>
       </header>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         {module.cards.map((card, index) => (
           <AppCard card={card} key={index} />
         ))}

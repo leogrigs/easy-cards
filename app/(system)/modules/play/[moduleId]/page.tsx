@@ -64,7 +64,7 @@ export default function PlayModulePage() {
 
   if (isLoading || module === null) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
+      <div className="flex min-h-screen items-center justify-center">
         <AppLoader />
       </div>
     );
@@ -74,10 +74,10 @@ export default function PlayModulePage() {
     <div className="flex flex-col items-center justify-center gap-8 px-0 py-16 lg:px-8 lg:py-24">
       {/* Module Header */}
       <div className="text-center">
-        <h3 className="text-3xl font-bold text-zinc-900 dark:text-zinc-50 mb-2">
+        <h3 className="mb-2 text-3xl font-bold text-zinc-900 dark:text-zinc-50">
           {module?.name}
         </h3>
-        <p className="text-base text-zinc-600 dark:text-zinc-400 max-w-xl mx-auto">
+        <p className="mx-auto max-w-xl text-base text-zinc-600 dark:text-zinc-400">
           {module?.description}
         </p>
       </div>
@@ -104,7 +104,7 @@ export default function PlayModulePage() {
           onClick={() => api?.scrollPrev()}
           disabled={current === 1}
         >
-          <ChevronLeft className="w-4 h-4" />
+          <ChevronLeft className="h-4 w-4" />
         </Button>
 
         {/* Current Position */}
@@ -126,7 +126,7 @@ export default function PlayModulePage() {
           onClick={() => api?.scrollNext()}
           disabled={current === count}
         >
-          <ChevronRight className="w-4 h-4" />
+          <ChevronRight className="h-4 w-4" />
         </Button>
       </div>
     </div>

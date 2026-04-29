@@ -8,14 +8,14 @@ export default function Home() {
   const { loginWithGoogle } = useAuth();
 
   return (
-    <div className="min-h-screen bg-zinc-50 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-50 flex items-center justify-center">
-      <div className="w-full max-w-4xl px-6 py-16 sm:py-24 animate-fade-in">
+    <div className="flex min-h-screen items-center justify-center bg-zinc-50 text-zinc-900 dark:bg-zinc-900 dark:text-zinc-50">
+      <div className="w-full max-w-4xl animate-fade-in px-6 py-16 sm:py-24">
         {/* Hero Section */}
         <header className="text-center">
-          <h1 className="text-5xl sm:text-6xl font-extrabold tracking-tight leading-tight mb-6">
+          <h1 className="mb-6 text-5xl font-extrabold leading-tight tracking-tight sm:text-6xl">
             Easy Cards
           </h1>
-          <p className="text-lg sm:text-xl text-zinc-600 dark:text-zinc-400 max-w-2xl mx-auto mb-10">
+          <p className="mx-auto mb-10 max-w-2xl text-lg text-zinc-600 dark:text-zinc-400 sm:text-xl">
             Simplify learning with <strong>Easy Cards</strong> — a smart,
             intuitive app for creating, managing, and sharing flashcards.
           </p>
@@ -39,9 +39,9 @@ export default function Home() {
           ].map((feature, index) => (
             <div
               key={index}
-              className="p-6 border border-zinc-200 dark:border-zinc-800 rounded-lg bg-transparent shadow-md"
+              className="rounded-lg border border-zinc-200 bg-transparent p-6 shadow-md dark:border-zinc-800"
             >
-              <h3 className="text-xl font-bold mb-2">{feature.title}</h3>
+              <h3 className="mb-2 text-xl font-bold">{feature.title}</h3>
               <p className="text-zinc-600 dark:text-zinc-400">{feature.text}</p>
             </div>
           ))}

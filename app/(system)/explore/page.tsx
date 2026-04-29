@@ -64,7 +64,7 @@ export default function ExplorePage() {
       </header>
 
       <Separator className="mb-8" />
-      <div className="flex gap-4 flex-col md:flex-row items-center justify-between mb-8">
+      <div className="mb-8 flex flex-col items-center justify-between gap-4 md:flex-row">
         <div className="w-full md:w-56">
           <AppInputSearch
             value={searchValue}
@@ -97,7 +97,7 @@ export default function ExplorePage() {
         </div>
       ) : (
         <div className="flex flex-col items-center justify-center">
-          <p className="mb-6 text-gray-600 dark:text-gray-400 text-center">
+          <p className="mb-6 text-center text-gray-600 dark:text-gray-400">
             No modules found. Create a new one to get started.
           </p>
         </div>

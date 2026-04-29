@@ -44,7 +44,7 @@ export function AppSidebar() {
       <SidebarContent>
         {/* Branding */}
         <SidebarGroup>
-          <SidebarGroupLabel className="flex items-center space-x-2 text-lg font-semibold text-indigo-600 dark:text-indigo-400 px-4 mt-4 mb-4">
+          <SidebarGroupLabel className="mb-4 mt-4 flex items-center space-x-2 px-4 text-lg font-semibold text-indigo-600 dark:text-indigo-400">
             <Image src={Logo} width={16} height={16} alt="Logo" />
             <span>Easy Cards</span>
           </SidebarGroupLabel>
@@ -60,7 +60,7 @@ export function AppSidebar() {
                     <a
                       href={item.url}
                       className={cn(
-                        "flex items-center space-x-2 px-4 py-2 rounded-md transition-colors hover:bg-gray-100 dark:hover:bg-gray-800",
+                        "flex items-center space-x-2 rounded-md px-4 py-2 transition-colors hover:bg-gray-100 dark:hover:bg-gray-800",
                         "text-gray-700 dark:text-gray-300"
                       )}
                     >
@@ -81,7 +81,7 @@ export function AppSidebar() {
           <SidebarMenuItem>
             <SidebarMenuButton
               onClick={logout}
-              className="flex items-center mb-8 space-x-2 px-4 py-2 text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md transition-colors"
+              className="mb-8 flex items-center space-x-2 rounded-md px-4 py-2 text-red-600 transition-colors hover:bg-gray-100 dark:text-red-400 dark:hover:bg-gray-800"
             >
               <LogOut className="h-5 w-5" />
               <span>Logout</span>

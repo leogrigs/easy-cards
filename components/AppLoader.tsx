@@ -3,7 +3,7 @@ import Logo from "../public/logo.png";
 
 export default function AppLoader() {
   return (
-    <div className="flex flex-col items-center justify-center gap-4 animate-pulse">
+    <div className="flex animate-pulse flex-col items-center justify-center gap-4">
       <Image
         className="animate-hflip"
         src={Logo}
@@ -11,7 +11,7 @@ export default function AppLoader() {
         height={32}
         alt="Logo"
       />
-      <span className="text-indigo-400 text-md font-medium">Loading...</span>
+      <span className="text-md font-medium text-indigo-400">Loading...</span>
     </div>
   );
 }

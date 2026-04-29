@@ -9,7 +9,8 @@
     "lint": "next lint",
     "release": "semantic-release",
     "test": "jest",
-    "test:coverage": "npm test -- --coverage && coverage-badges --source coverage/coverage-summary.json --output ./badge.svg"
+    "test:coverage": "npm test -- --coverage && coverage-badges --source coverage/coverage-summary.json --output ./badge.svg",
+    "prepare": "husky"
   },
   "dependencies": {
     "@firebase/app": "^0.10.15",
@@ -55,9 +56,13 @@
     "coverage-badges-cli": "^2.1.0",
     "eslint": "^8",
     "eslint-config-next": "15.0.3",
+    "husky": "^9.1.7",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
+    "lint-staged": "^16.4.0",
     "postcss": "^8",
+    "prettier": "^3.8.3",
+    "prettier-plugin-tailwindcss": "^0.8.0",
     "semantic-release": "^24.2.0",
     "tailwindcss": "^3.4.1",
     "ts-node": "^10.9.2",
