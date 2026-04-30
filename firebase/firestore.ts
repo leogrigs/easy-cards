@@ -85,6 +85,31 @@ export async function updateUserModules(userId: string, module: ModulePreview) {
 }
 
 /**
+ * Thrown by getModuleById when no module exists for the given id.
+ */
+export class ModuleNotFoundError extends Error {
+  constructor(moduleId: string) {
+    super(`Module ${moduleId} not found`);
+    this.name = "ModuleNotFoundError";
+  }
+}
+
+/**
+ * Fetches a single module by id.
+ * @throws ModuleNotFoundError if the document does not exist.
+ */
+export async function getModuleById(moduleId: string): Promise<Module> {
+  const moduleRef = doc(firestore, "modules", moduleId);
+  const snapshot = await getDoc(moduleRef);
+
+  if (!snapshot.exists()) {
+    throw new ModuleNotFoundError(moduleId);
+  }
+
+  return snapshot.data() as Module;
+}
+
+/**
  * Fetches all public modules from Firestore.
  * @returns An array of public modules.
  */

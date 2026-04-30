@@ -1,6 +1,6 @@
 import PlayModulePage from "@/app/(system)/modules/play/[moduleId]/page";
+import { getModuleById, ModuleNotFoundError } from "@/firebase/firestore";
 import { useLoader } from "@/providers/LoaderContext";
-import { getDoc } from "@firebase/firestore";
 import { render, screen, waitFor } from "@testing-library/react";
 
 jest.mock("@/providers/LoaderContext", () => ({
@@ -10,9 +10,9 @@ jest.mock("@/providers/LoaderContext", () => ({
   })),
 }));
 
-jest.mock("@firebase/firestore", () => ({
-  getDoc: jest.fn(),
-  doc: jest.fn(),
+jest.mock("@/firebase/firestore", () => ({
+  getModuleById: jest.fn(),
+  ModuleNotFoundError: class ModuleNotFoundError extends Error {},
 }));
 
 jest.mock("@/firebase/clientApp", () => ({
@@ -65,7 +65,9 @@ describe("PlayModulePage", () => {
   // });
 
   it("handles missing module data", async () => {
-    (getDoc as jest.Mock).mockResolvedValueOnce({ exists: () => false });
+    (getModuleById as jest.Mock).mockRejectedValueOnce(
+      new ModuleNotFoundError("test-module-id")
+    );
 
     render(<PlayModulePage />);
 
@@ -75,7 +77,7 @@ describe("PlayModulePage", () => {
   });
 
   it("handles fetch errors", async () => {
-    (getDoc as jest.Mock).mockRejectedValueOnce(
+    (getModuleById as jest.Mock).mockRejectedValueOnce(
       new Error("Error fetching module")
     );
 

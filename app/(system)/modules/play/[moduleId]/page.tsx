@@ -9,10 +9,9 @@ import {
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel";
-import { firestore } from "@/firebase/clientApp";
+import { getModuleById } from "@/firebase/firestore";
 import { Module } from "@/interfaces/module.interface";
 import { useLoader } from "@/providers/LoaderContext";
-import { doc, getDoc } from "@firebase/firestore";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -31,15 +30,7 @@ export default function PlayModulePage() {
     setLoading(true);
     const fetchModule = async () => {
       try {
-        const moduleRef = doc(firestore, "modules", moduleId);
-        const moduleSnapshot = await getDoc(moduleRef);
-
-        if (moduleSnapshot.exists()) {
-          setModule(moduleSnapshot.data() as Module);
-        } else {
-          console.error("Module not found.");
-          setModule(null);
-        }
+        setModule(await getModuleById(moduleId));
       } catch (error) {
         console.error("Error fetching module:", error);
         setModule(null);
