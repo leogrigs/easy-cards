@@ -3,11 +3,10 @@
 import { AppCard } from "@/components/AppCard";
 import AppLoader from "@/components/AppLoader";
 import { Badge } from "@/components/ui/badge";
-import { firestore } from "@/firebase/clientApp";
+import { getModuleById, ModuleNotFoundError } from "@/firebase/firestore";
 import { useToast } from "@/hooks/use-toast";
 import { Module } from "@/interfaces/module.interface";
 import { useLoader } from "@/providers/LoaderContext";
-import { doc, getDoc } from "firebase/firestore";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -24,24 +23,14 @@ export default function ViewModulePage() {
 
     const fetchModule = async () => {
       try {
-        const moduleRef = doc(firestore, "modules", moduleId);
-        const moduleSnapshot = await getDoc(moduleRef);
-
-        if (moduleSnapshot.exists()) {
-          setModule(moduleSnapshot.data() as Module);
-        } else {
-          toast({
-            title: "Error",
-            description: "Module not found.",
-            variant: "destructive",
-          });
-          router.push("/dashboard");
-        }
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        setModule(await getModuleById(moduleId));
       } catch (error) {
         toast({
           title: "Error",
-          description: "An error occurred while fetching the module.",
+          description:
+            error instanceof ModuleNotFoundError
+              ? "Module not found."
+              : "An error occurred while fetching the module.",
           variant: "destructive",
         });
         router.push("/dashboard");
