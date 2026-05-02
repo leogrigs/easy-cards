@@ -4,7 +4,7 @@ import { AppCard } from "@/components/AppCard";
 import AppLoader from "@/components/AppLoader";
 import { Badge } from "@/components/ui/badge";
 import { getModuleById, ModuleNotFoundError } from "@/firebase/firestore";
-import { useToast } from "@/hooks/use-toast";
+import { toast } from "sonner";
 import { Module } from "@/interfaces/module.interface";
 import { useLoader } from "@/providers/LoaderContext";
 import { useParams, useRouter } from "next/navigation";
@@ -15,7 +15,6 @@ export default function ViewModulePage() {
   const moduleId = searchParams["moduleId"];
   const [module, setModule] = useState<Module | null>(null);
   const { isLoading, setLoading } = useLoader();
-  const { toast } = useToast();
   const router = useRouter();
 
   useEffect(() => {
@@ -25,14 +24,11 @@ export default function ViewModulePage() {
       try {
         setModule(await getModuleById(moduleId));
       } catch (error) {
-        toast({
-          title: "Error",
-          description:
-            error instanceof ModuleNotFoundError
-              ? "Module not found."
-              : "An error occurred while fetching the module.",
-          variant: "destructive",
-        });
+        toast.error(
+          error instanceof ModuleNotFoundError
+            ? "Module not found."
+            : "An error occurred while fetching the module."
+        );
         router.push("/dashboard");
       } finally {
         setLoading(false);

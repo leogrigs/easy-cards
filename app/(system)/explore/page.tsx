@@ -6,7 +6,7 @@ import { AppModule } from "@/components/AppModule";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { getPublicModules, updateUserModules } from "@/firebase/firestore";
-import { useToast } from "@/hooks/use-toast";
+import { toast } from "sonner";
 import { Module, ModulePreview } from "@/interfaces/module.interface";
 import { useAuth } from "@/providers/AuthContext";
 import { useLoader } from "@/providers/LoaderContext";
@@ -20,7 +20,6 @@ export default function ExplorePage() {
   const [buttonLoading, setButtonLoading] = useState("");
   const { isLoading, setLoading } = useLoader();
   const { user } = useAuth();
-  const { toast } = useToast();
   const filteredModules = modules?.filter(
     (module: ModulePreview) =>
       module.name.toLowerCase().includes(searchValue.toLowerCase()) ||
@@ -45,10 +44,7 @@ export default function ExplorePage() {
     if (!user) return;
     setButtonLoading(module.id);
     await updateUserModules(user.uid, module);
-    toast({
-      title: "Module added",
-      description: `Module ${module.name} added to your modules`,
-    });
+    toast.success(`Module ${module.name} added to your modules`);
     setButtonLoading("");
   };
 

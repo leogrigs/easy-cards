@@ -1,6 +1,6 @@
 import DashboardPage from "@/app/(system)/dashboard/page";
 import { deleteModuleFromUser, getUserData } from "@/firebase/firestore";
-import { useToast } from "@/hooks/use-toast";
+import { toast } from "sonner";
 import { useAuth } from "@/providers/AuthContext";
 import { useLoader } from "@/providers/LoaderContext";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
@@ -16,8 +16,8 @@ jest.mock("@/providers/AuthContext", () => ({
 jest.mock("@/providers/LoaderContext", () => ({
   useLoader: jest.fn(),
 }));
-jest.mock("@/hooks/use-toast", () => ({
-  useToast: jest.fn(),
+jest.mock("sonner", () => ({
+  toast: { success: jest.fn(), error: jest.fn() },
 }));
 jest.mock("next/link", () => ({
   __esModule: true,
@@ -41,7 +41,7 @@ jest.mock("@/components/AppLoader", () => ({
 }));
 jest.mock("@/components/AppModule", () => ({
   __esModule: true,
-  AppModule: jest.fn(({ module, onDelete, isOwner, isLoading }) => (
+  AppModule: jest.fn(({ module, onDelete, isLoading }) => (
     <div data-testid="module-item">
       <p>{module.name}</p>
       <button
@@ -64,7 +64,6 @@ const setupMocks = ({
   user = mockUser,
   isLoading = false,
   userData = { modules: mockModules },
-  toast = jest.fn(),
 } = {}) => {
   (useAuth as jest.Mock).mockReturnValue({ user });
   (useLoader as jest.Mock).mockReturnValue({
@@ -73,7 +72,6 @@ const setupMocks = ({
   });
   (getUserData as jest.Mock).mockResolvedValue(userData);
   (deleteModuleFromUser as jest.Mock).mockResolvedValue({});
-  (useToast as jest.Mock).mockReturnValue({ toast });
 };
 
 describe("DashboardPage", () => {
@@ -142,22 +140,20 @@ describe("DashboardPage", () => {
   });
 
   it("shows a toast when a module is deleted", async () => {
-    const mockToast = jest.fn();
-    setupMocks({ toast: mockToast });
+    setupMocks();
     render(<DashboardPage />);
     await waitFor(() => {
       fireEvent.click(screen.getByTestId("delete-button-1"));
     });
     await waitFor(() => {
-      expect(mockToast).toHaveBeenCalledWith({
-        title: "Module deleted",
-        description: "Your module has been deleted successfully.",
-      });
+      expect(toast.success).toHaveBeenCalledWith(
+        "Your module has been deleted successfully."
+      );
     });
   });
 
   it("does not call fetchUserData when user is not authenticated", async () => {
-    setupMocks({ user: null as any });
+    setupMocks({ user: null as unknown as typeof mockUser });
     render(<DashboardPage />);
     await waitFor(() => {
       expect(getUserData).not.toHaveBeenCalled();

@@ -1,4 +1,4 @@
-import { Toaster } from "@/components/ui/toaster";
+import { Toaster } from "sonner";
 import type { Metadata } from "next";
 import { AuthProvider } from "../providers/AuthContext";
 import "./globals.css";
@@ -18,7 +18,7 @@ export default function RootLayout({
       <html lang="en" className="dark">
         <body>
           {children}
-          <Toaster />
+          <Toaster richColors closeButton />
         </body>
       </html>
     </AuthProvider>

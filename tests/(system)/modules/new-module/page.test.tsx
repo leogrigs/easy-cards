@@ -1,6 +1,6 @@
 import CreateModulePage from "@/app/(system)/modules/new-module/page";
 import { createModule, updateUserModules } from "@/firebase/firestore";
-import { useToast } from "@/hooks/use-toast";
+import { toast } from "sonner";
 import { useAuth } from "@/providers/AuthContext";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
@@ -25,18 +25,16 @@ jest.mock("@/firebase/firestore", () => ({
   updateUserModules: jest.fn(),
 }));
 
-jest.mock("@/hooks/use-toast", () => ({
-  useToast: jest.fn(),
+jest.mock("sonner", () => ({
+  toast: { success: jest.fn(), error: jest.fn() },
 }));
 
 describe("CreateModulePage", () => {
-  const mockToast = { toast: jest.fn() };
   const mockRouterPush = jest.fn();
   const mockAuth = { user: { uid: "user123" } };
 
   beforeEach(() => {
     jest.clearAllMocks();
-    (useToast as jest.Mock).mockReturnValue(mockToast);
     (useRouter as jest.Mock).mockReturnValue({ push: mockRouterPush });
     (useAuth as jest.Mock).mockReturnValue(mockAuth);
   });
@@ -118,10 +116,9 @@ describe("CreateModulePage", () => {
         ],
       });
       expect(mockRouterPush).toHaveBeenCalledWith("/dashboard");
-      expect(mockToast.toast).toHaveBeenCalledWith({
-        title: "Module created",
-        description: "Your module has been created successfully.",
-      });
+      expect(toast.success).toHaveBeenCalledWith(
+        "Your module has been created successfully."
+      );
     });
   });
 
@@ -158,11 +155,7 @@ describe("CreateModulePage", () => {
     fireEvent.click(screen.getByText("Create Module"));
 
     await waitFor(() => {
-      expect(mockToast.toast).toHaveBeenCalledWith({
-        title: "Error",
-        description: "Failed to create module.",
-        variant: "destructive",
-      });
+      expect(toast.error).toHaveBeenCalledWith("Failed to create module.");
     });
   });
 
@@ -180,11 +173,9 @@ describe("CreateModulePage", () => {
     fireEvent.click(screen.getByText("Create Module"));
 
     await waitFor(() => {
-      expect(mockToast.toast).toHaveBeenCalledWith({
-        title: "Error",
-        description: "You must add at least one card.",
-        variant: "destructive",
-      });
+      expect(toast.error).toHaveBeenCalledWith(
+        "You must add at least one card."
+      );
     });
   });
 
@@ -228,12 +219,9 @@ describe("CreateModulePage", () => {
     fireEvent.click(screen.getByText("Apply"));
 
     await waitFor(() => {
-      expect(mockToast.toast).toHaveBeenCalledWith({
-        title: "Error",
-        description:
-          "Invalid JSON format. Ensure it's an array of objects with 'front' and 'back'.",
-        variant: "destructive",
-      });
+      expect(toast.error).toHaveBeenCalledWith(
+        "Invalid JSON format. Ensure it's an array of objects with 'front' and 'back'."
+      );
     });
   });
 

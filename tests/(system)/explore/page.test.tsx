@@ -1,6 +1,6 @@
 import ExplorePage from "@/app/(system)/explore/page";
 import { getPublicModules, updateUserModules } from "@/firebase/firestore";
-import { useToast } from "@/hooks/use-toast";
+import { toast } from "sonner";
 import { useAuth } from "@/providers/AuthContext";
 import { useLoader } from "@/providers/LoaderContext";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
@@ -16,8 +16,8 @@ jest.mock("@/providers/AuthContext", () => ({
 jest.mock("@/providers/LoaderContext", () => ({
   useLoader: jest.fn(),
 }));
-jest.mock("@/hooks/use-toast", () => ({
-  useToast: jest.fn(),
+jest.mock("sonner", () => ({
+  toast: { success: jest.fn(), error: jest.fn() },
 }));
 jest.mock("next/link", () => ({
   __esModule: true,
@@ -75,7 +75,6 @@ const setupMocks = ({
   user = mockUser,
   isLoading = false,
   modules = mockModules,
-  toast = jest.fn(),
 } = {}) => {
   (useAuth as jest.Mock).mockReturnValue({ user });
   (useLoader as jest.Mock).mockReturnValue({
@@ -84,7 +83,6 @@ const setupMocks = ({
   });
   (getPublicModules as jest.Mock).mockResolvedValue(modules);
   (updateUserModules as jest.Mock).mockResolvedValue({});
-  (useToast as jest.Mock).mockReturnValue({ toast });
 };
 
 describe("ExplorePage", () => {
@@ -161,23 +159,21 @@ describe("ExplorePage", () => {
   });
 
   it("shows a toast when a module is added", async () => {
-    const mockToast = jest.fn();
-    setupMocks({ toast: mockToast });
+    setupMocks();
     render(<ExplorePage />);
     await waitFor(() => {
       expect(getPublicModules).toHaveBeenCalled();
     });
     fireEvent.click(screen.getByTestId("add-button-1"));
     await waitFor(() => {
-      expect(mockToast).toHaveBeenCalledWith({
-        title: "Module added",
-        description: "Module Public Module 1 added to your modules",
-      });
+      expect(toast.success).toHaveBeenCalledWith(
+        "Module Public Module 1 added to your modules"
+      );
     });
   });
 
   it("does not fetch public modules when user is not authenticated", async () => {
-    setupMocks({ user: null as any });
+    setupMocks({ user: null as unknown as typeof mockUser });
     render(<ExplorePage />);
     await waitFor(() => {
       expect(getPublicModules).toHaveBeenCalled();

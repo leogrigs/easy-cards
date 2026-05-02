@@ -15,7 +15,7 @@ import { Switch } from "@/components/ui/switch";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
 import { createModule, updateUserModules } from "@/firebase/firestore";
-import { useToast } from "@/hooks/use-toast";
+import { toast } from "sonner";
 import { ICard } from "@/interfaces/card.interface";
 import { Module, ModulePreview } from "@/interfaces/module.interface";
 import { useAuth } from "@/providers/AuthContext";
@@ -37,7 +37,6 @@ const formSchema = z.object({
 });
 
 export default function CreateModulePage() {
-  const { toast } = useToast();
   const { user } = useAuth();
   const router = useRouter();
   const [cards, setCards] = useState<ICard[]>([]);
@@ -54,11 +53,7 @@ export default function CreateModulePage() {
 
   const handleAddCard = (front: string, back: string) => {
     if (!front || !back) {
-      toast({
-        title: "Error",
-        description: "Both Front and Back are required.",
-        variant: "destructive",
-      });
+      toast.error("Both Front and Back are required.");
       return;
     }
     setCards([...cards, { id: Date.now().toString(), front, back }]);
@@ -80,15 +75,11 @@ export default function CreateModulePage() {
 
       setCards([...cards, ...parsedCards]);
       setJsonInput("");
-      toast({ title: "Success", description: "Cards added successfully." });
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (error) {
-      toast({
-        title: "Error",
-        description:
-          "Invalid JSON format. Ensure it's an array of objects with 'front' and 'back'.",
-        variant: "destructive",
-      });
+      toast.success("Cards added successfully.");
+    } catch {
+      toast.error(
+        "Invalid JSON format. Ensure it's an array of objects with 'front' and 'back'."
+      );
     }
   };
 
@@ -98,11 +89,7 @@ export default function CreateModulePage() {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     if (cards.length === 0) {
-      toast({
-        title: "Error",
-        description: "You must add at least one card.",
-        variant: "destructive",
-      });
+      toast.error("You must add at least one card.");
       return;
     }
     if (!user) return;
@@ -126,17 +113,9 @@ export default function CreateModulePage() {
 
       await updateUserModules(user.uid, _modulePreview);
       router.push(`/dashboard`);
-      toast({
-        title: "Module created",
-        description: "Your module has been created successfully.",
-      });
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (error) {
-      toast({
-        title: "Error",
-        description: "Failed to create module.",
-        variant: "destructive",
-      });
+      toast.success("Your module has been created successfully.");
+    } catch {
+      toast.error("Failed to create module.");
     }
   };
 
