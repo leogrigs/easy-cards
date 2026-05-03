@@ -1,8 +1,8 @@
 "use client";
 
 import AppInputSearch from "@/components/AppInputSearch";
-import AppLoader from "@/components/AppLoader";
 import { AppModule } from "@/components/AppModule";
+import { AppModuleSkeleton } from "@/components/AppModuleSkeleton";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { deleteModuleFromUser, getUserData } from "@/firebase/firestore";
@@ -89,7 +89,11 @@ export default function DashboardPage() {
           </Button>
         </div>
         {isLoading || userData === null ? (
-          <AppLoader />
+          <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+            {Array.from({ length: 6 }).map((_, i) => (
+              <AppModuleSkeleton key={i} />
+            ))}
+          </div>
         ) : modules.length > 0 ? (
           <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
             {modules.map((module) => (

@@ -1,8 +1,9 @@
 "use client";
 
 import { AppCard } from "@/components/AppCard";
-import AppLoader from "@/components/AppLoader";
+import { AppCardSkeleton } from "@/components/AppCardSkeleton";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 import {
   Carousel,
   CarouselApi,
@@ -55,8 +56,19 @@ export default function PlayModulePage() {
 
   if (isLoading || module === null) {
     return (
-      <div className="flex min-h-screen items-center justify-center">
-        <AppLoader />
+      <div className="flex flex-col items-center justify-center gap-8 px-0 py-16 lg:px-8 lg:py-24">
+        <div className="text-center">
+          <Skeleton className="mx-auto mb-2 h-9 w-64" />
+          <Skeleton className="mx-auto h-4 w-80" />
+        </div>
+        <div className="w-full max-w-xs md:max-w-md lg:max-w-2xl xl:max-w-4xl">
+          <AppCardSkeleton />
+        </div>
+        <div className="flex items-center gap-4">
+          <Skeleton className="h-9 w-9" />
+          <Skeleton className="h-4 w-20" />
+          <Skeleton className="h-9 w-9" />
+        </div>
       </div>
     );
   }

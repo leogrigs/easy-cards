@@ -1,8 +1,8 @@
 "use client";
 
 import AppInputSearch from "@/components/AppInputSearch";
-import AppLoader from "@/components/AppLoader";
 import { AppModule } from "@/components/AppModule";
+import { AppModuleSkeleton } from "@/components/AppModuleSkeleton";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { getPublicModules, updateUserModules } from "@/firebase/firestore";
@@ -75,7 +75,11 @@ export default function ExplorePage() {
         </Button>
       </div>
       {isLoading || modules === null ? (
-        <AppLoader />
+        <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          {Array.from({ length: 8 }).map((_, i) => (
+            <AppModuleSkeleton key={i} />
+          ))}
+        </div>
       ) : filteredModules!.length > 0 ? (
         <div>
           <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">

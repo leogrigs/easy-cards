@@ -37,13 +37,13 @@ describe("PlayModulePage", () => {
     jest.clearAllMocks();
   });
 
-  it("renders the loader during initial loading", () => {
+  it("renders skeleton placeholders during initial loading", () => {
     (useLoader as jest.Mock).mockReturnValueOnce({
       isLoading: true,
       setLoading: jest.fn(),
     });
     render(<PlayModulePage />);
-    expect(screen.getByText(/loading/i)).toBeInTheDocument();
+    expect(screen.getByTestId("card-skeleton")).toBeInTheDocument();
   });
 
   // it("fetches and displays module data", async () => {
