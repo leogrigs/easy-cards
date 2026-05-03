@@ -6,7 +6,7 @@ import { AppModule } from "@/components/AppModule";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { deleteModuleFromUser, getUserData } from "@/firebase/firestore";
-import { useToast } from "@/hooks/use-toast";
+import { toast } from "sonner";
 import { ModulePreview } from "@/interfaces/module.interface";
 import { UserData } from "@/interfaces/user-data.interface";
 import { useAuth } from "@/providers/AuthContext";
@@ -32,7 +32,6 @@ export default function DashboardPage() {
         ),
       ]
     : [];
-  const { toast } = useToast();
 
   useEffect(() => {
     setLoading(true);
@@ -57,10 +56,7 @@ export default function DashboardPage() {
     setButtonLoading(moduleId);
     await deleteModuleFromUser(user.uid, moduleId);
     await fetchUserData();
-    toast({
-      title: "Module deleted",
-      description: "Your module has been deleted successfully.",
-    });
+    toast.success("Your module has been deleted successfully.");
     setButtonLoading("");
   };
 
