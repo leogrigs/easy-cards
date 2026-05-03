@@ -35,9 +35,9 @@ jest.mock("@/components/AppInputSearch", () => ({
     />
   )),
 }));
-jest.mock("@/components/AppLoader", () => ({
+jest.mock("@/components/AppModuleSkeleton", () => ({
   __esModule: true,
-  default: () => <div data-testid="loader">Loading...</div>,
+  AppModuleSkeleton: () => <div data-testid="module-skeleton" />,
 }));
 jest.mock("@/components/AppModule", () => ({
   __esModule: true,
@@ -90,10 +90,10 @@ describe("ExplorePage", () => {
     jest.clearAllMocks();
   });
 
-  it("renders loading state", async () => {
+  it("renders skeletons while loading", async () => {
     setupMocks({ isLoading: true });
     render(<ExplorePage />);
-    expect(screen.getByTestId("loader")).toBeInTheDocument();
+    expect(screen.getAllByTestId("module-skeleton").length).toBeGreaterThan(0);
   });
 
   it("renders empty state when no modules", async () => {

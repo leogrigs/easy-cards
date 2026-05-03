@@ -1,8 +1,9 @@
 "use client";
 
 import { AppCard } from "@/components/AppCard";
-import AppLoader from "@/components/AppLoader";
+import { AppCardSkeleton } from "@/components/AppCardSkeleton";
 import { Badge } from "@/components/ui/badge";
+import { Skeleton } from "@/components/ui/skeleton";
 import { getModuleById, ModuleNotFoundError } from "@/firebase/firestore";
 import { toast } from "sonner";
 import { Module } from "@/interfaces/module.interface";
@@ -40,16 +41,16 @@ export default function ViewModulePage() {
 
   if (isLoading || module === null) {
     return (
-      <div className="flex min-h-screen items-center justify-center">
-        <AppLoader />
-      </div>
-    );
-  }
-
-  if (!module) {
-    return (
-      <div className="flex min-h-screen items-center justify-center">
-        <p>Module not found.</p>
+      <div className="mx-auto max-w-4xl p-6">
+        <header className="mb-6">
+          <Skeleton className="h-9 w-1/2" />
+          <Skeleton className="mt-3 h-4 w-3/4" />
+        </header>
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          {Array.from({ length: 4 }).map((_, i) => (
+            <AppCardSkeleton key={i} />
+          ))}
+        </div>
       </div>
     );
   }
