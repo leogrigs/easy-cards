@@ -1,3 +1,10 @@
+# [1.21.0](https://github.com/leogrigs/easy-cards/compare/v1.20.0...v1.21.0) (2026-05-03)
+
+
+### Features
+
+* replace AppLoader with content-shaped skeletons ([ea2d7a8](https://github.com/leogrigs/easy-cards/commit/ea2d7a8670ff19fe5c411115a983039dbfc73694))
+
 # [1.20.0](https://github.com/leogrigs/easy-cards/compare/v1.19.1...v1.20.0) (2026-05-03)
 
 
