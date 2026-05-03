@@ -1,3 +1,10 @@
+# [1.20.0](https://github.com/leogrigs/easy-cards/compare/v1.19.1...v1.20.0) (2026-05-03)
+
+
+### Features
+
+* replace useToast with Sonner ([bfe0f68](https://github.com/leogrigs/easy-cards/commit/bfe0f68c0ea599263c1f0ac71ac2e185769e83ef))
+
 ## [1.19.1](https://github.com/leogrigs/easy-cards/compare/v1.19.0...v1.19.1) (2024-12-14)
 
 
