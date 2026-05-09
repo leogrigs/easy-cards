@@ -11,20 +11,23 @@ import {
   CarouselItem,
 } from "@/components/ui/carousel";
 import { getModuleById } from "@/firebase/firestore";
+import { useHotkeys } from "@/hooks/use-hotkeys";
 import { Module } from "@/interfaces/module.interface";
 import { useLoader } from "@/providers/LoaderContext";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function PlayModulePage() {
   const searchParams = useParams<{ moduleId: string }>();
   const moduleId = searchParams["moduleId"];
+  const router = useRouter();
   const [module, setModule] = useState<Module | null>(null);
   const { isLoading, setLoading } = useLoader();
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);
+  const [flippedIndex, setFlippedIndex] = useState<number | null>(null);
 
   useEffect(() => {
     if (!moduleId) return;
@@ -51,8 +54,20 @@ export default function PlayModulePage() {
 
     api.on("select", () => {
       setCurrent(api.selectedScrollSnap() + 1);
+      setFlippedIndex(null);
     });
   }, [api]);
+
+  useHotkeys(
+    {
+      ArrowLeft: () => api?.scrollPrev(),
+      ArrowRight: () => api?.scrollNext(),
+      " ": () =>
+        setFlippedIndex((prev) => (prev === current - 1 ? null : current - 1)),
+      Escape: () => router.push(`/modules/${moduleId}`),
+    },
+    !isLoading && module !== null
+  );
 
   if (isLoading || module === null) {
     return (
@@ -91,7 +106,13 @@ export default function PlayModulePage() {
           <CarouselContent>
             {module?.cards.map((card, index) => (
               <CarouselItem key={index}>
-                <AppCard card={card} />
+                <AppCard
+                  card={card}
+                  isFlipped={flippedIndex === index}
+                  onFlip={() =>
+                    setFlippedIndex((prev) => (prev === index ? null : index))
+                  }
+                />
               </CarouselItem>
             ))}
           </CarouselContent>
@@ -132,6 +153,11 @@ export default function PlayModulePage() {
           <ChevronRight className="h-4 w-4" />
         </Button>
       </div>
+
+      <p className="text-xs text-muted-foreground">
+        <kbd>←</kbd> <kbd>→</kbd> navigate · <kbd>Space</kbd> flip ·{" "}
+        <kbd>Esc</kbd> back to module
+      </p>
     </div>
   );
 }

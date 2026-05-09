@@ -21,6 +21,7 @@ jest.mock("@/firebase/clientApp", () => ({
 
 jest.mock("next/navigation", () => ({
   useParams: jest.fn(() => ({ moduleId: "test-module-id" })),
+  useRouter: jest.fn(() => ({ push: jest.fn() })),
 }));
 
 describe("PlayModulePage", () => {

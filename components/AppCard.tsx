@@ -4,16 +4,26 @@ import { Card, CardContent } from "./ui/card";
 
 export interface IAppCardProps {
   card: ICard;
+  isFlipped?: boolean;
+  onFlip?: (flipped: boolean) => void;
 }
 
-export function AppCard({ card }: IAppCardProps) {
-  const [isFlipped, setIsFlipped] = useState(false);
+export function AppCard({
+  card,
+  isFlipped: controlledFlipped,
+  onFlip,
+}: IAppCardProps) {
+  const [internalFlipped, setInternalFlipped] = useState(false);
+  const isFlipped =
+    controlledFlipped !== undefined ? controlledFlipped : internalFlipped;
+
+  const handleFlip = () => {
+    if (onFlip) onFlip(!isFlipped);
+    else setInternalFlipped((prev) => !prev);
+  };
 
   return (
-    <div
-      className="cursor-pointer p-4"
-      onClick={() => setIsFlipped(!isFlipped)}
-    >
+    <div className="cursor-pointer p-4" onClick={handleFlip}>
       <Card
         className={`group relative mx-auto h-64 w-full rounded-lg ${
           isFlipped
