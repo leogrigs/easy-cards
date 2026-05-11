@@ -2,6 +2,7 @@ import { AppSidebar } from "@/components/AppSidebar";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { useAuth } from "@/providers/AuthContext";
 import { fireEvent, render, screen } from "@testing-library/react";
+import { usePathname } from "next/navigation";
 
 jest.mock("@/providers/AuthContext", () => ({
   useAuth: jest.fn(() => ({ logout: jest.fn() })),
@@ -11,6 +12,17 @@ jest.mock("next/image", () => ({
   __esModule: true,
   default: jest.fn(() => <div>Logo</div>),
 }));
+
+jest.mock("next/navigation", () => ({
+  usePathname: jest.fn(),
+}));
+
+const renderSidebar = () =>
+  render(
+    <SidebarProvider>
+      <AppSidebar />
+    </SidebarProvider>
+  );
 
 describe("AppSidebar", () => {
   const mockLogout = jest.fn();
@@ -31,12 +43,9 @@ describe("AppSidebar", () => {
     });
 
     (useAuth as jest.Mock).mockReturnValue({ logout: mockLogout });
+    (usePathname as jest.Mock).mockReturnValue("/dashboard");
 
-    render(
-      <SidebarProvider>
-        <AppSidebar />
-      </SidebarProvider>
-    );
+    renderSidebar();
   });
 
   it("renders the sidebar", () => {
@@ -60,5 +69,26 @@ describe("AppSidebar", () => {
     const logoutButton = screen.getByRole("button", { name: "Logout" });
     fireEvent.click(logoutButton);
     expect(mockLogout).toHaveBeenCalledTimes(1);
+  });
+
+  it("renders navigation items as Next.js links", () => {
+    expect(screen.getByRole("link", { name: /dashboard/i })).toHaveAttribute(
+      "href",
+      "/dashboard"
+    );
+    expect(screen.getByRole("link", { name: /explore/i })).toHaveAttribute(
+      "href",
+      "/explore"
+    );
+  });
+
+  it("marks the active route with aria-current=page", () => {
+    expect(screen.getByRole("link", { name: /dashboard/i })).toHaveAttribute(
+      "aria-current",
+      "page"
+    );
+    expect(screen.getByRole("link", { name: /explore/i })).not.toHaveAttribute(
+      "aria-current"
+    );
   });
 });
