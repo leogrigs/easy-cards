@@ -1,6 +1,6 @@
 import { AppModule } from "@/components/AppModule";
 import { ModulePreview } from "@/interfaces/module.interface";
-import { fireEvent, render } from "@testing-library/react";
+import { fireEvent, render, screen, within } from "@testing-library/react";
 
 describe("AppModule component", () => {
   const mockModule: ModulePreview = {
@@ -23,15 +23,31 @@ describe("AppModule component", () => {
     expect(getByText("Owner")).toBeInTheDocument();
   });
 
-  it("calls onDelete when delete button is clicked", () => {
+  it("opens a confirm dialog when the delete trigger is clicked", () => {
     const onDelete = jest.fn();
-    const { getByRole } = render(
-      <AppModule module={mockModule} onDelete={onDelete} />
-    );
-    const deleteButton = getByRole("button", { name: "Delete" });
-    fireEvent.click(deleteButton);
+    render(<AppModule module={mockModule} onDelete={onDelete} />);
+    fireEvent.click(screen.getByRole("button", { name: /delete/i }));
+    expect(screen.getByRole("alertdialog")).toBeInTheDocument();
+    expect(onDelete).not.toHaveBeenCalled();
+  });
+
+  it("calls onDelete only after confirming in the dialog", () => {
+    const onDelete = jest.fn();
+    render(<AppModule module={mockModule} onDelete={onDelete} />);
+    fireEvent.click(screen.getByRole("button", { name: /delete/i }));
+    const dialog = screen.getByRole("alertdialog");
+    fireEvent.click(within(dialog).getByRole("button", { name: /^delete$/i }));
     expect(onDelete).toHaveBeenCalledTimes(1);
     expect(onDelete).toHaveBeenCalledWith(mockModule.id);
+  });
+
+  it("does not call onDelete when the dialog is cancelled", () => {
+    const onDelete = jest.fn();
+    render(<AppModule module={mockModule} onDelete={onDelete} />);
+    fireEvent.click(screen.getByRole("button", { name: /delete/i }));
+    const dialog = screen.getByRole("alertdialog");
+    fireEvent.click(within(dialog).getByRole("button", { name: /cancel/i }));
+    expect(onDelete).not.toHaveBeenCalled();
   });
 
   it("calls onAdd when add button is clicked", () => {

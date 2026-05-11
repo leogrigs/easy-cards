@@ -1,6 +1,17 @@
 import { ModulePreview } from "@/interfaces/module.interface";
 import { Eye, Loader, Play, Plus, Trash } from "lucide-react";
 import Link from "next/link";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "./ui/alert-dialog";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 import {
@@ -72,19 +83,40 @@ export function AppModule({
                   <Play className="mr-1 h-4 w-4" /> Play
                 </Link>
               </Button>
-              <Button
-                onClick={() => onDelete && onDelete(module.id)}
-                variant="ghost"
-                size="sm"
-                className="flex items-center"
-              >
-                {isLoading ? (
-                  <Loader className="animate-spin" />
-                ) : (
-                  <Trash className="mr-1 h-4 w-4" />
-                )}{" "}
-                Delete
-              </Button>
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="flex items-center"
+                    disabled={isLoading}
+                  >
+                    {isLoading ? (
+                      <Loader className="animate-spin" />
+                    ) : (
+                      <Trash className="mr-1 h-4 w-4" />
+                    )}{" "}
+                    Delete
+                  </Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>Delete this module?</AlertDialogTitle>
+                    <AlertDialogDescription>
+                      This will remove <strong>{module.name}</strong> from your
+                      modules. This action cannot be undone.
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogAction
+                      onClick={() => onDelete && onDelete(module.id)}
+                    >
+                      Delete
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
             </>
           ) : (
             <>
