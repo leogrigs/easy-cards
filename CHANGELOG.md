@@ -1,3 +1,10 @@
+# [1.24.0](https://github.com/leogrigs/easy-cards/compare/v1.23.0...v1.24.0) (2026-05-11)
+
+
+### Features
+
+* use next/link and active route styling in sidebar ([c5a9a51](https://github.com/leogrigs/easy-cards/commit/c5a9a5182ab4db48d75bb485320e81f502a5deac))
+
 # [1.23.0](https://github.com/leogrigs/easy-cards/compare/v1.22.0...v1.23.0) (2026-05-11)
 
 
