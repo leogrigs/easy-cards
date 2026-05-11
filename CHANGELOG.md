@@ -1,3 +1,10 @@
+# [1.22.0](https://github.com/leogrigs/easy-cards/compare/v1.21.0...v1.22.0) (2026-05-11)
+
+
+### Features
+
+* confirm before deleting a module ([9ce82df](https://github.com/leogrigs/easy-cards/commit/9ce82dfc06a76b21b85ed6d9ed374b9cb8788e65))
+
 # [1.21.0](https://github.com/leogrigs/easy-cards/compare/v1.20.0...v1.21.0) (2026-05-03)
 
 
