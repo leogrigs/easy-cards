@@ -1,3 +1,10 @@
+# [1.23.0](https://github.com/leogrigs/easy-cards/compare/v1.22.0...v1.23.0) (2026-05-11)
+
+
+### Features
+
+* keyboard shortcuts in play mode ([46d807c](https://github.com/leogrigs/easy-cards/commit/46d807c7bcd346efa22ce556bf9f81b04f9a1cb9))
+
 # [1.22.0](https://github.com/leogrigs/easy-cards/compare/v1.21.0...v1.22.0) (2026-05-11)
 
 
